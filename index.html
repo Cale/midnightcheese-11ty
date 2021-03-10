@@ -1,1 +1,17 @@
-<!doctype html><html><head><title>Page title</title></head><body><p>Hi</p></body></html>
+---
+layout: page.njk
+pagination:
+  data: collections.post
+  size: 10
+  reverse: true
+  alias: posts
+---
+{% for post in posts %}
+  <article>
+    <h1>
+      <a href="{{ post.url | url }}">{{ post.data.title }}</a>
+    </h1>
+    <p>{{ post.data.post_excerpt }}</p>
+    {{ post.date }}
+  </article>
+{% endfor %}
