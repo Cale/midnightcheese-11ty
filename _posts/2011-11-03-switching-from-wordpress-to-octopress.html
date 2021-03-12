@@ -1,0 +1,42 @@
+---
+layout: post
+title: "Switching From WordPress to Octopress"
+date: 2011-11-03 10:37:00
+comments: true
+tags:
+- post
+- Blogging
+- Web Design
+---
+
+<h1>{{ title }}</h1>
+
+<p>Today marks yet another milestone for Midnight Cheese by successfully making the migration from <a href="http://wordpress.org/">WordPress</a> to <a href="http://octopress.org/">Octopress</a>. With web trends moving toward fast, light, and responsive, my WordPress setup was becoming slow, bloated, and stagnant. WordPress functions well, but for a single user it was just too large of a feature set. The slow page-load times really made this obvious.</p>
+
+<p>Octopress is the complete opposite of WordPress. Octopress is all static. No scripting. No DB.</p>
+
+<p><strong>Some History</strong><br />The current design is the default Octopress theme. That means a redesign is coming soon. I started looking back and realized 2007 was the last time I applied a design update, which is a bit embarrassing.</p>
+
+<p>Octopress is the fourth blogging CMS that the site has operated under. <a href="http://en.wikipedia.org/wiki/Blogger_(service)">Blogger</a> started everything off very early on, followed by <a href="http://en.wikipedia.org/wiki/Greymatter_(software)">Greymatter</a> (also based on static files) in 2001, WordPress in 2004, and now Octopress.</p>
+
+<p><img src="http://assets.midnightcheese.com/images/midnightcheese-2002.png" alt="Midnight Cheese in 2002" border="0"><br /><small>Midnight Cheese in 2002</small></p>
+
+<p><strong>Issues with Disqus</strong><br />The WordPress import instructions on the Octopress site worked well. The most time consuming part for me was getting <a href="http://disqus.com/">Disqus</a> properly set up. It turns out you have to enable comments on each post.</p>
+
+<pre><code>
+  comments: true
+</code></pre>
+
+<p>This meant a lot of text manipulation across some 470 posts. I used a little perl action to run through the _posts folder and change what was needed in each file. Basically a find and replace action.</p>
+
+<pre><code>
+  perl -pi -e 's/type: post/type: post\ncomments: true/g' *.html
+</code></pre>
+
+<p>In addition, to get the comment count to appear on the main index view, I had to implement <a href="http://www.benjiegillam.com/2011/09/octopress-slash-disqus-issue-resolved/">this Disqus fix from Benjie Gillam</a>.</p>
+
+<p><strong>Image Files and Redirects</strong><br />Storing my repo on <a href="http://github.com/">Github</a>, I decided I didn't want to have all my images and various media files sitting on Github's servers, or across multiple repos on my various computers. On most posts I often have quite a few images. To solve this I created an assets subdomain and moved everything over, keeping all those large files out of the code base.</p>
+
+<p>Many of my images rank well on Google image search which drives a good bit of traffic to the site. That meant 301 redirects for all my images. And again I used that perl script to run through all the posts to modify image URLs.</p>
+
+<p><strong>To the Future</strong><br />I love how light and responsive the site has become with the static setup. Next on the list is a fresh design and custom asides. Flickr will probably be top on the aside list.</p>

@@ -1,0 +1,46 @@
+---
+layout: post
+title: Fusion HDTV to QuickTime H.264
+status: publish
+type: post
+comments: true
+published: true
+---
+
+<h1>{{ title }}</h1>
+
+<p>I've been playing around with the <a href="http://www.dvico.com/">DViCO</a> Fusion HDTV tuner card in my PC trying to find an easy way to export a clip as a 720p H.264 file playable in QuickTime. Well, of course, there is no easy way. The card records clips in its own special format that nothing but mplayer can seem to play back. That means you can't just drop the clips into QuickTime and export away. So if you have one of the DViCO Fusion HDTV Cards, here's a little how-to on getting your recordings into an H.264 QuickTime. (This is largely adapted from the efforts by <a href="http://davemoore.org/blog/archives/2005/02/streaming_video.html">davemoore.org</a>.)</p>
+
+<p><b>Prereqs:</b> Make sure you're recording your clips as the default, Transport Stream (clips should have the .tp extension). To convert the *.tp files, you're going to need a Linux install (Fedora Core 3 worked nicely) with mplayer/mencoder, ffmpeg, faac, and mp4creator(<a href="http://www.mpeg4ip.net/">mpeg4ip</a>) installed. And, of course, QuickTime Pro.</p>
+
+<p><b>Step One: Copy</b> your clip (we'll call it dvico_001.tp) over to your Linux box and issue this command to convert from the native format to a Divx AVI file.</p>
+
+<pre><code>mencoder dvico_001.tp -vf kerndeint,scale=1280:720 -ovc lavc -lavcopts vcodec=mpeg4:vbitrate=9000:vhq:v4mv:keyint=132:vpass=1 -nosound -o dvico_001.avi</code></pre>
+
+<p>We're scaling the video down to 1280x720, which is standard 720p resolution. The bitrate is probably a bit high, but since we're going to be re-encoding later in QuickTime, we want to make sure this version is as lossless as possible. This is a one pass encode. If you want a two pass encode, reissue the same command, only change vpass=1 to vpass=2. You'll also notice that we're not processing sound at this time. That comes next.</p>
+
+<p><b>Step Two: Extract</b> the Audio from the original file into a wav file called dvico_001_audio.wav.</p>
+
+<pre><code>ffmpeg -i dvico_001.tp -vn -f wav dvico_001_audio.wav</code></pre>
+
+<p><b>Step Three: Convert</b> the wav file into an aac file called dvico_001_audio.aac</p>
+
+<pre><code>faac --mpeg-vers 4 --tns -o dvico_001_audio.aac dvico_001_audio.wav</code></pre>
+
+<p><b>Step Four: Convert</b> the Divx AVI file over to an MPEG4 file. This is the file that QuickTime will soon be able to play back and export.</p>
+
+<pre><code>mp4creator -c dvico_001.avi -rate=29.97 -hint dvico_001.mp4</code></pre>
+
+<p><b>Step Five: Merge</b> the audio file into the video file.</p>
+
+<pre><code>mp4creator -c dvico_001_audio.aac -hint -interleave dvico_001.mp4</code></pre>
+
+<p><b>Step Six: Optimize</b> the file so QuickTime can read it.</p>
+
+<pre><code>mp4creator -optimize dvico_001.mp4</code></pre>
+
+<p>That's it. Now you can open that file up in QuickTime and export as anything you like, including H.264 goodness.</p>
+
+<p><b>Possible Issues:</b> I often get errors after step 4, but the file seems to turn out okay. I also run into an issue where my audio is no longer synced up when the audio and video is interleaved. I solved this by trimming the wav file in <a href="http://audacity.sourceforge.net/">Audacity</a>.</p>
+
+<p><b>Examples:</b> I recorded the Yeah Yeah Yeahs performing Gold Lion on Letterman. <a href="/video/yyys-720p.mp4">Here's a 720p clip in H.264</a>, and also a <a href="/video/yyys-ipod.m4v">tiny version</a> playable on a video iPod. The data rate on the 720p clip is roughly 3000 kbits/sec, so certain areas are a bit soft, but overall the picture quality is decent. <s>(The 720p clip is still uploading to the server, so it may take a another half hour or so to complete thanks to Comcast's despicable squeeze on the upload cable. Check back around 1:00am CST)</s></p>

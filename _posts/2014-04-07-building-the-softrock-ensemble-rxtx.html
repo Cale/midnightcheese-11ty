@@ -1,0 +1,84 @@
+---
+layout: post
+title: "Building the Softrock Ensemble RXTX"
+date: 2014-04-07 11:39:00
+comments: true
+tags:
+- post
+- Amateur Radio
+published: true
+---
+
+<h1>{{ title }}</h1>
+
+<p>
+  Looking for a cheap
+  <a href='http://en.wikipedia.org/wiki/High_frequency'>HF</a>
+  alternative, I picked up one of the
+  <a href='http://fivedash.com/index.php?main_page=product_info&amp;products_id=7'>Softrock Ensemble RXTX</a>
+  kits and spent the last several weeks slowly putting the kit together. The Ensemble is a
+  <a href='http://en.wikipedia.org/wiki/Software-defined_radio'>software defined radio.</a>
+  In summary, the hardware provides the signal, leaving the computer software to do the heavy lifting. That includes both tuning and processing of received signals.
+</p>
+<p>
+  <a href='http://assets.midnightcheese.com/images/softrock-ensemble-rxtx.jpg'><img alt='Softrock Ensemble RXTX' src='http://assets.midnightcheese.com/images/softrock-ensemble-rxtx-small.jpg' /></a>
+  <small>Softrock Ensemble RXTX</small>
+</p>
+<p>I had high expectations for this little board and it delivers fairly well. The receive functionality is fantastic, even though setting up the software is a nightmare. Transmitting is still a work in progress. However, I think I'm close.</p>
+<p>
+  <strong>The beauty of SDR</strong>
+  <br />
+  Software defined radio is all about the visuals. In essence, SDR allows you to "see" a wide band of spectrum all at once. If you think about the FM radio band that your car stereo listens in on, the SDR equivalent shows you all the FM transmissions/signals at once. Each transmission is represented by a column of lovely reds and greens flowing up the screen. To listen in on a single transmission, simply click where you want to listen. No more scrolling or scanning until you find something that doesn't sound like static.
+</p>
+<p>
+  <a href='http://assets.midnightcheese.com/images/hdsdr.jpg'><img alt='HDSDR' src='http://assets.midnightcheese.com/images/hdsdr-small.jpg' /></a>
+  <small>HDSDR displaying 80 meters.</small>
+</p>
+<p>
+  In the ham radio world, instead of broadcast stations, we're looking at individuals transmitting conversations through voice,&nbsp;<a href='http://en.wikipedia.org/wiki/Morse_code'>morse code</a>, and digital modes. The same principle applies. Click on a column to listen in.
+</p>
+<p>
+  <strong>Building the kit</strong>
+  <br />
+  This was the most complex solder project I've taken on and I have the errors to show for it. Everything went fairly smoothly until I soldered in a transformer, forgetting to first strip the coating off the wires. In removing the transformer, I damaged the board enough where one of the metal rings lining one of the solder points was accidentally ripped out. I had to use a piece of scrap to hard-solder two points together. On the up side, things still tested out and functioned properly.
+</p>
+<p>At the time, I thought the build process would be the most difficult part of this project. Little did I know, the software setup for this board would be one of the most difficult software setups I've ever encountered.</p>
+<p>Being a UX guy it typically doesn't take me long to figure things out when it comes to software. However, words can not describe the frustration experienced trying to get the SDR software set up to use this kit.</p>
+<p>
+  <strong>HDSDR software</strong>
+  <br />
+  When
+  <a href='http://www.hdsdr.de/'>HDSDR</a>
+  works, it's a beautiful thing. The software really is easy to navigate. Tuning is straight-forward and the visuals are amazing.
+</p>
+<p>As awesome as the software is, there's no good step-by-step documentation to walk the user through the process. I understand there are a lot of variables in these setups including various sound cards and even the way the boards are built. That may be one reason for a general lack of documentation. The other issue is, when setting things up, I tried so many different combinations of this and that, I can't remember what I did to get the thing working. That makes writing documentation difficult and I wish I had taken notes along the way for the benefit of others.</p>
+<p>
+  <strong>Receiving</strong>
+  <br />
+  Once the software is in good shape, let the receiving begin. I built my kit for the 20, 30, and 40 meter bands, but I'm still able to receive from 80 meters to about 15MHz very well.
+</p>
+<p>Speaking about sound cards for a moment, from what I can gather, a really good sound card is what's needed to make these kits really work well. The sound card in my desktop machine does a great job. On the other hand, plugging the Ensemble into my laptop, I experience mirrored instances of signals. Unfortunately, playing with HDSDR's image reduction settings yields no change in my experience.</p>
+<p>
+  <strong>Transmitting</strong>
+  <br />
+  As difficult as the setup was for receiving, I still haven't figured out the proper configuration for transmitting. The unit will transmit. I've been able to pick up my own transmissions on another receiver. The issue I'm having is a double transmission of the signal. In the screens below, you can see what that looks like when transmitting digital modes. Could this simply be due to the fact that my reciever is so close in proximity to my transmitter?
+</p>
+<p>
+  <a href='http://assets.midnightcheese.com/images/jt65-double-signal.jpg'><img alt='JT65 double signal transmitting with Softrock' src='http://assets.midnightcheese.com/images/jt65-double-signal-small.jpg' /></a>
+  <small>Double signal transmitting JT65 with the Softrock.</small>
+</p>
+<p>
+  <a href='http://assets.midnightcheese.com/images/psk31-double-signal.jpg'><img alt='PSK31 double signal transmitting with Softrock' src='http://assets.midnightcheese.com/images/psk31-double-signal-small.jpg' /></a>
+  <small>Double signal transmitting PSK31 with the Softrock.</small>
+</p>
+<p>
+  <a href='http://assets.midnightcheese.com/images/hdsdr-double-signal.jpg'><img alt='HDSDR showing double transmit signal' src='http://assets.midnightcheese.com/images/hdsdr-double-signal-small.jpg' /></a>
+  <small>HDSDR displaying the double signal when transmitting.</small>
+</p>
+<p>
+  I've posted to the
+  <a href='http://groups.yahoo.com/neo/groups/softrock40/info'>Softrock group</a>
+  and read all there is to read, but I'm pretty well stuck at this point. I don't have the knowledge to know if it's hardware related or software related.
+</p>
+<p>Until I figure that out, my days of transmitting are off in the not so distant future.</p>
+<p>In the end, this has been a fun project and I use the kit regularly. It's a great learning tool. If you're on the fence about putting one of these kits together, I'd highly recommend it. Be prepared, however. A time consuming battle awaits when it comes time to interface with the computer. Keep at it, it will work eventually.</p>

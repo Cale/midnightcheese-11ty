@@ -1,0 +1,17 @@
+---
+layout: post
+title: On to Ubuntu
+tags:
+- post
+- Linux
+status: publish
+type: post
+comments: true
+published: true
+---
+
+<h1>{{ title }}</h1>
+
+<p>So I attempted to install Core 6 on my home server this weekend, but <a href="http://fedora.redhat.com/">Fedora</a> was unable to configure X to work with the integrated Intel video chipset(82845G/GL) that is common to only about a bazillion computers. Instead of messing with the xorg.conf file for the next hour I decided to install <a href="http://www.ubuntu.com/server">Ubuntu Server</a> instead. The base system installed without issue. apt-getting a usable install of Gnome took longer than it should have, but once all the correct packages were installed, X and Gnome worked flawlessly. (no manual config of xorg necessary.)</p>
+
+<p>The only casualty of this install was the software I was using to run the <a href="http://www.midnightcheese.com/index.php?page_id=346">webcam</a>. <a href="http://camsource.sourceforge.net/">Camsource</a> wouldn't compile under Ubuntu(not available as a package), so I've switched over to what seems to be a full featured piece of software called <a href="http://www.lavrsen.dk/twiki/bin/view/Motion/WebHome">Motion</a>. I probably won't ever need it, but Motion offers motion detection and mpeg capture. At the moment I'm just using the straight jpeg streaming ability.</p>

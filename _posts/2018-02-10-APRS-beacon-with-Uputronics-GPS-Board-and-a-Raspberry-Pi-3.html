@@ -1,0 +1,237 @@
+---
+title: APRS beacon with Uputronics GPS Board and a Raspberry Pi 3
+date: 2018-02-10 07:25:01
+cdn: 'header-off'
+header-img: 'http://assets.midnightcheese.com/images/uputronics-gps-board.jpg'
+tags:
+- post
+- Amateur Radio
+- APRS
+---
+
+<h1>{{ title }}</h1>
+
+<p>This is a detailed, step-by-step guide to using an <a href="https://store.uputronics.com/index.php?route=product/product&product_id=81">Uputronics GPS board</a> as the main component of a Pi based APRS position beacon. This project is very similar to my previous <a href="http://midnightcheese.com/2015/12/super-simple-aprs-position-beacon/">APRS beacon project</a> using a USB GPS module. I worked very closely with Chris, K7AZ who was very gracious to lend out the GPS board for this project.</p>
+
+<p>The Uputronics GPS board is typically used as a timing device/NTP server for the Pi in absence of a real time clock (using date and time info via GPS). For this project I'm more interested in the positional data coming from the board.</p>
+
+<p>The board itself is a great piece of hardware. The GPS signal locks in almost instantly. Even in the house. It performs much better than the USB GPS modules I've used in the past. On to the guide.</p>
+
+<h2>Download Raspian Stretch Lite, write to SD card</h2>
+<p><a href="https://www.raspberrypi.org/downloads/raspbian/">https://www.raspberrypi.org/downloads/raspbian/</a>
+<p>I'm using the CLI only version to keep the system load low, but this should work just the same with the desktop environment version.</p>
+
+<p>I used the <a href="https://apps.ubuntu.com/cat/applications/precise/usb-creator-gtk/">Ubuntu Startup Disk Creator app</a> that comes with Ubuntu to create my SD card.</p>
+
+<p>Attach GPS board, antenna, SD card to Pi.</p>
+
+<p>Boot Pi</p>
+
+<h2>Configure Pi with raspi-config app</h2>
+```
+$ sudo raspi-config
+```
+<p>Set locale to en us UTF-8.</p>
+
+<p><strong>Timezone</strong>
+<br>Keyboard: English (US), generic PC keyboard
+<br>Wi-fi US</p>
+
+<p><strong>Interfacing options menu</strong>
+<br>Enable SSH
+<br>P6 Serial -> Login Shell (no) Hardware (yes)</p>
+
+<h2>Board setup</h2>
+
+<p>I borrowed most of the GPS board setup from <a href="https://ava.upuaut.net/?p=726">Anthony Stirk (M0UPU)</a>.</p>
+```
+$ sudo nano /boot/config.txt
+```
+
+<p><strong>Add at the bottom:</strong></p>
+```
+# Allow the normal UART pins to work
+dtoverlay=pi3-miniuart-bt
+dtoverlay=pps-gpio,gpiopin=18
+```
+
+<p>Save and Quit Nano.</p>
+
+<p><strong>Enable wi-fi</strong></p>
+
+```
+$ sudo nano /etc/wpa_supplicant/wpa_supplicant.conf
+```
+
+<p>Go to the bottom of the file and add the following:</p>
+```
+network={
+  ssid="wifi-name"
+  psk="wifi-password"
+}
+```
+
+<p><a href="https://www.raspberrypi.org/documentation/configuration/wireless/wireless-cli.md">Wifi reference</a>.</p>
+
+<p><strong>Update the Pi</strong></p>
+```
+$ sudo apt update
+$ sudo apt upgrade
+```
+
+<p><strong>Disable bluetooth serial support</strong> (I'm guessing the GPS serial connection conflicts with the Bluetooth serial interface)</p>
+```
+$ sudo systemctl disable hciuart
+```
+
+<p><strong>Not sure what this one does</strong></p>
+```
+$ sudo systemctl mask serial-getty@ttyAMA0.service
+```
+
+<p><strong>PPS tools (pulse per second)</strong> reads the GPS board which sends GPS/time info every second</p>
+```
+$ sudo apt install pps-tools
+$ sudo apt install libcap-dev
+$ sudo reboot
+```
+
+<h2>Verifying PPS is working</h2>
+
+<p>Ensure the GPS has a signal lock and the green PPS LED on the Uputronics Pi+ GPS Expansion Board is blinking once per second.</p>
+```
+$ dmesg | grep pps
+```
+
+<p><strong>Output should be similar to:</strong></p>
+```
+[ 2.443494] pps_core: LinuxPPS API ver. 1 registered
+[ 2.446699] pps_core: Software ver. 5.3.6 - Copyright 2005-2007 Rodolfo Giometti &lt;giometti@linux.it&gt;
+[ 2.471796] pps pps0: new PPS source pps.-1
+[ 2.471886] pps pps0: Registered IRQ 498 as PPS source
+[ 6.965166] pps_ldisc: PPS line discipline registered
+```
+```
+$ sudo ppstest /dev/pps0
+```
+
+<p><strong>Output should be similar to:</strong></p>
+```
+ trying PPS source "/dev/pps0"
+ found PPS source "/dev/pps0"
+ ok, found 1 source(s), now start fetching data...
+ source 0 - assert 1418933982.998042450, sequence: 970 - clear 0.000000000, sequence: 0
+ source 0 - assert 1418933983.998045441, sequence: 971 - clear 0.000000000, sequence: 0
+```
+
+<p style="color:#f00;">If you see “Connection timed out,” the GPS may not have a solid signal or the board may not be properly set on the Pi. This tripped me up for a while.</p>
+
+<h2>Set up GPSD</h2>
+
+<p><strong>Edit gpsd config</strong>
+<br>This took a while to figure out. The pi version assumes a USB GPS device will be attached, so we have to disable USB auto config and define the serial device in the config file.</p>
+```
+$ sudo nano /etc/default/gpsd
+```
+```
+Change USBAUTO="false"
+Change DEVICES="/dev/ttyAMA0"
+```
+```
+$ sudo /etc/init.d/gpsd restart
+```
+<p><strong>Test gpsd</strong></p>
+```
+$ cgps -s
+```
+<p>You should see GPS info populated: Time, lat, lon, grid square, etc.</p>
+
+<p>Reboot for good measure and run cgps -s again.</p>
+
+<h2>Setting up the local web server and gpsd script</h2>
+
+<p><strong>Install apache web server which will read GPS info and feed the APRS script</strong></p>
+```
+$ sudo apt install apache2 -y
+```
+<p><strong>Install PHP which will run our APRS script</strong></p>
+```
+$ sudo apt install php libapache2-mod-php -y
+```
+<p><strong>Install gpsd script that feeds GPS info to APRS script</strong></p>
+```
+$ cd /var/www/html
+$ sudo wget http://git.savannah.gnu.org/cgit/gpsd.git/plain/gpsd.php.in
+```
+<p><strong>Rename gpsd script</strong></p>
+```
+$ sudo mv gpsd.php.in gpsd.php
+```
+<p><strong>Execute gpsd script</strong></p>
+```
+$ sudo php gpsd.php
+```
+<p>If successful, you should see a bunch of HTML in the console and navigating to <a href="http://localhost/gpsd.php?op=json">http://localhost/gpsd.php?op=json</a> in your Pi's web browser should produce a bunch of plaintext looking GPS information.</p>
+
+<p><strong>Edit gpsd.php</strong></p>
+```
+$ sudo nano gpsd.php
+```
+<p>On line 100, change the 2000 value to 4000.</p>
+
+<h2>Install AFSK software modem</h2>
+
+<p>This is a <a href="https://pypi.python.org/pypi/afsk/0.0.3">Python library</a> that generates Bell 202 AFSK audio samples and AFSK encoded APRS/AX.25 packets.</p>
+```
+$ sudo apt install python-pip python-dev
+$ sudo pip install afsk
+```
+<p style="color:#f00;">If you get a "TypeError: unsupported operand type(s) for -=: 'Retry' and 'int'", try rebooting and run sudo pip install afsk one more time.</p>
+
+<p><strong>Set your Pi's output audio to 60.</strong></p>
+```
+$ alsamixer
+```
+<p>Press the 'up' key on your keyboard until you get to 60. Press 'esc.'</p>
+
+<p><strong>Force audio output through 3.5mm jack, not HDMI</strong></p>
+```
+$ sudo raspi-config
+```
+<p>Choose "Advanced Options"
+<br>Choose "A4 Audio"
+<br>Choose option 1
+<br>Exit
+</p>
+
+<h2>Install main APRS script</h2>
+
+<p><strong><a href="https://gist.githubusercontent.com/Cale/699979c3f597378dfaca/raw/538f95b73efbf808004e785bff3d407e2da2ce36/aprs-position-beacon.php">Download main beacon script</a> from Github</strong></p>
+```
+$ cd ~/
+$ wget https://gist.githubusercontent.com/Cale/699979c3f597378dfaca/raw/538f95b73efbf808004e785bff3d407e2da2ce36/aprs-position-beacon.php
+```
+
+<p><strong>Edit the script and add your callsign to line 13</strong></p>
+```
+$ nano aprs-position-beacon.php
+```
+
+<h2>Test run the script</h2>
+```
+$ php aprs-position-beacon.php
+```
+<p>You can ignore any "PHP Notice" messages. You'll see lat lon info on the screen. If the GPS board is unable to pick up a signal, you'll see "No GPS data is available."</p>
+
+<p>When a GPS signal is acquired, you should see "Transmitting beacon" and "Playing WAV."</p>
+
+<p>At that point you should see a "packet.wav" file show up in your home directory. That's another confirmation the script is working.</p>
+```
+$ ls ~/
+```
+
+<p>If you plug the Pi's audio into a speaker, you should hear the APRS/AFSK modem sounds.</p>
+
+<p>For the HT, I plug the audio cable into the mic port and turn on VOX. Your HT should then transmit your position!</p>
+
+<p><strong>Next steps:</strong> Starting the beacon script on boot.</p>

@@ -1,0 +1,59 @@
+---
+layout: post
+title: "A quick how-to with the aprs.fi API"
+date: 2012-09-11 15:49:00
+comments: true
+tag:
+- Amateur Radio
+- APRS
+- API
+---
+
+<h1>{{ title }}</h1>
+
+<p><a href="www.aprs.org/">APRS</a> lets users share information (GPS tracks, WX info, etc.) both over the internet and over the air via amateur radio. (<a href="http://en.wikipedia.org/wiki/Automatic_Packet_Reporting_System">See Wikipedia for more about APRS</a>.)</p>
+
+<p><a href="http://aprs.fi/">aprs.fi</a> is the go-to site to see current APRS activity in your (or any) area. They also have an <a href="http://aprs.fi/page/api">API</a> that lets users tie into all this great data.</p>
+
+<p>In the example below I've written a small PHP script that demonstrates how to pull data from the API and display that data in your terminal window.</p>
+
+<pre>
+<code lang="php">
+&lt;?php
+
+ini_set( "user_agent", "Midnight Cheese (+http://midnightcheese.com/)" );
+
+echo "\n\nFetching APRS data...\n\n";
+
+function display_APRS() {
+	$json_url = "http://api.aprs.fi/api/get?apikey=0000&name=KBNA,KF4KFQ,AG4FW,WR1Q&what=wx&format=json";
+	$json = file_get_contents( $json_url, 0, null, null );
+	$json_output = json_decode( $json, true);
+	$station_array = $json_output[ 'entries' ];
+	foreach ( $station_array as $station ) {
+		$name = $station[ 'name' ];
+		$temp = $station[ 'temp' ];
+		$temp = ( ( 9 / 5 ) * $temp ) + 32; // Convert celsius to fahrenheit.
+		echo "Temperature is ".$temp."°F at ".$name."\n";
+	}
+	echo "\n\n";
+}
+
+display_APRS();
+
+?>
+</code>
+</pre>
+
+<p>In this case we're requesting a list of weather information posted by a handful of different operators. The API returns the data in JSON which is then parsed and displayed. The final output is displayed below.</p>
+
+<pre>
+Fetching APRS data...
+
+Temperature is 82.04°F at KBNA
+Temperature is 84.92°F at KF4KFQ
+Temperature is 78.08°F at AG4FW
+Temperature is 82.94°F at WR1Q
+</pre>
+
+<p><a href="http://assets.midnightcheese.com/images/aprs.fi-large.png"><img src="http://assets.midnightcheese.com/images/aprs.fi.jpg" alt="Objects on the aprs.fi map."></a><br><small>Lots of APRS objects displayed on the <a href="http://aprs.fi/">aprs.fi</a> map.</small></p>

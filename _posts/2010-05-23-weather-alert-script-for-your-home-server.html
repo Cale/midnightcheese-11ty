@@ -1,0 +1,148 @@
+---
+layout: post
+title: Weather Alert Script for your Home Server
+tags:
+- post
+- Weather
+status: publish
+type: post
+comments: true
+published: true
+---
+
+<h1>{{ title }}</h1>
+
+<p>With the <a href="http://www.midnightcheese.com/2009/04/murfreesboro-tornado/">often active tornado season</a> in Middle Tennessee I've been meaning to buy a weather radio. But first I wanted to see if my home server could do the job for me. Using <a href="http://www.linux.org/apps/AppId_2367.html">beep</a>, <a href="http://en.wikipedia.org/wiki/Cron">cron</a>, and the <a href="http://wiki.wunderground.com/index.php/API_-_XML">weather API</a> from <a href="http://www.wunderground.com/">Weather Underground</a>, I've crafted a homebrew weather alert system.</p>
+
+<p><strong>How it works:</strong> Utilizing cron, a PHP script is run every ten minutes retrieving the number of active weather alerts for a specific zip code. On most days the alert count is zero. However, if an alert is active, (a severe thunderstorm watch or a tornado watch, for example) cron starts running a separate PHP script every 1 minute looking specifically for severe thunderstorm <em>warnings</em> or tornado <em>warnings</em>.</p>
+
+<p>If a watch is active, the server uses beep to send out a specific sound.</p>
+
+<pre><code lang="bash">
+beep -f 75 -l 3000
+</code></pre>
+
+<p>If a warning is active, beep outputs a different sound.</p>
+
+<pre><code lang="bash">
+beep -f 900 -l 1500 -r 4
+</code></pre>
+
+<p>As it happens, our server is just off the kitchen, so we can hear the beeping from the main part of the house.</p>
+
+<p>Here is the code:</p>
+
+<pre><code lang="php">
+< ?php
+function pullWXAlerts() {
+  $zipCode = 37086; // Your Zip Code
+  $wxAlerts = "http://api.wunderground.com/auto/wui/geo/AlertsXML/index.xml?query=".$zipCode; // Weather Underground API
+
+  $xml = simplexml_load_file($wxAlerts);
+  $alertCount = count($xml->xpath('//AlertItem')); // Counting the number of active alerts.
+
+  echo "\nActive Alerts: ".$alertCount."\n\n";
+
+  $alerts = array();
+  if ($alertCount > 0) {
+    echo "The following alerts are active for ".$zipCode.":\n";
+    foreach($xml->xpath('//description') as $alert) {
+      $alerts[] = $alert;
+      echo $alert."\n";
+    }
+    shell_exec('beep -f 75 -l 3000'); // Beep if an alert exists
+    $wxAlerts = print_r($alerts,true);
+$mailBody=<<<_ORDER_
+The following alerts are active for the $zipCode zip code:
+
+$wxAlerts
+
+_ORDER_;
+
+    mail('user@domain.com','WX Alerts',$mailBody);
+
+  }
+  echo "\n";
+
+  // If alerts exist, start checking for additional warnings every minute.
+
+  $lsResult = shell_exec('ls /etc/cron.minutely');
+  $f = strstr($lsResult,'wx-warn');
+  if (($alertCount > 0) && ($f == false)) {
+    echo "Copying warning script to /etc/cron.minutely.\n";
+
+    // Copy our script to be run once a minute into /etc/cron.minutely
+    shell_exec('cp /home/user/wx-alerts/wx-warn-min /etc/cron.minutely/');
+  } else if (($alertCount == 0) && ($f == true)) {
+    echo "Removing script from /etc/cron.minutely\n";
+
+    // If no alerts exist, remove our script from /etc/cron.minutely
+    shell_exec('rm /etc/cron.minutely/wx-warn-min');
+  }
+}
+
+pullWXAlerts();
+
+?></code></pre>
+
+<p>Above is the script that looks for watches every ten minutes. If watches exist, a second script is copied over to to the cron folder and is run every minute. I've added the functionality to also email myself if an alert exists.</p>
+
+<p>This is the script that runs every minute if a weather alert is active:</p>
+
+<pre><code lang="php">
+< ?php
+function pullWXAlerts() {
+
+  $zipCode = 37086; // Your Zip Code
+  $wxAlerts = "http://api.wunderground.com/auto/wui/geo/AlertsXML/index.xml?query=".$zipCode; // Weather Underground API
+
+  $xml = simplexml_load_file($wxAlerts);
+  $alertCount = count($xml->xpath('//AlertItem')); // Counting the number of active alerts.
+
+  echo "\nActive Alerts: ".$alertCount."\n\n";
+
+  $alerts = array();
+  if ($alertCount > 0) {
+    echo "The following alerts are active for ".$zipCode.":\n";
+    foreach($xml->xpath('//description') as $alert) {
+      $alerts[] = $alert;
+      echo $alert."\n";
+      if ($alert == "Tornado Warning" || $alert == "Severe Thunderstorm Warning") {
+        shell_exec('beep -f 900 -l 1500 -r 4');
+	echo "Beeping 4 times for ".$alert."\n";
+        $warn = true;
+	$warning = $alert;
+      }
+    }
+    $wxAlerts = print_r($alerts,true);
+
+    if ($warn == true) {
+$mailBody=<<<_ORDER_
+The following warnings are active for the $zipCode zip code:
+
+$warning
+
+_ORDER_;
+
+    mail('user@domain.com','WX Warning Alert',$mailBody);
+}
+}
+  echo "\n";
+}
+pullWXAlerts();
+?>
+</code></pre>
+
+<p>Once again we're getting an alert count. If an alert exists and it's either a thunderstorm warning or a tornado warning, beep takes over and starts sounding the alarm.</p>
+
+<p>I had to customize my crontab in order for the system to run a job every ten minutes as well as every minute. There is a lot of <a href="http://adminschoice.com/crontab-quick-reference">info about crontab</a> on the interwebs.</p>
+
+<p>Once cron is set up, you can call these files from a bash script like so:</p>
+
+<pre><code lang="bash">
+#!/bin/bash
+
+php /home/user/wx-alerts/pull-wx-alerts.php
+</code></pre>
+
+<p><strong>A word of caution:</strong> While this system may work well for some, it's likely not ideal for everyone. Some system beeps are very quiet. You're also relying on computers to get the alert out. Not to mention your internet connection and power company. Personally, I'll still be investing in a real weather radio, but this can act as a decent failsafe.</p>

@@ -1,0 +1,125 @@
+---
+layout: post
+title: "Super Simple APRS Position Reporter"
+date: 2015-12-13 14:25:00
+comments: true
+cdn: 'header-off'
+header-img: 'http://assets.midnightcheese.com/images/aprs-position-track.jpg'
+tags:
+- post
+- Amateur Radio
+- APRS
+- PHP
+---
+
+<h1>{{ title }}</h1>
+
+<p><strong>Barest of bones APRS RF position reporter</strong></p>
+
+<p><strong>Update 7/2019:</strong> I highly recommend using <a href="https://github.com/wb2osz/direwolf">Direwolf</a> in place of this solution. Direwolf provides the same result using the same hardware setup but with many more options (smart beaconing, igate, digipeating) and is much less taxing on the Pi's CPU. Most importantly, that project is actively maintained. Detailed set up <a href="https://github.com/wb2osz/direwolf/tree/master/doc">instructions</a> are also available. As such, I'm no longer providing support for this project.</p>
+
+<p>Updated 8/2017 to point to the master gpsd repo when setting up the web server.</p>
+
+<p>I've been pondering an idea for a super bare-bones <a href="https://en.wikipedia.org/wiki/Automatic_Packet_Reporting_System">APRS</a> position reporter through RF for over a year. This project idea has been in response to the more hardware heavy <a href="https://www.raspberrypi.org/">Raspberry Pi</a> projects that involve extra TNC hardware, additional sound cards, and custom cabling.</p>
+
+<p>My criteria has been a Raspberry Pi and an HT as the two major hardware components. No hardware TNCs and no custom cabling. I'm also not using a traditional APRS software package like <a href="http://xastir.org/index.php/Main_Page">Xastir</a> or <a href="http://ham.zmailer.org/oh2mqk/aprx/wiki-Aprx-en.html">APRX</a>.</p>
+
+<p>In this project I'm using a Raspberry Pi B+, USB GPS receiver, Baofeng UV-5R, and a mono 3.5mm audio cable between the Pi and HT.</p>
+
+<p><a href="http://assets.midnightcheese.com/images/raspberry-pi.jpg"><img src="http://assets.midnightcheese.com/images/raspberry-pi.jpg" width="450" alt="Raspberry Pi B+"/></a></p>
+
+<p>Through the Pi's audio output an APRS message is sent to the VOX enabled HT.</p>
+
+<p><a href="http://assets.midnightcheese.com/images/baofeng-uv-5r.jpg"><img src="http://assets.midnightcheese.com/images/baofeng-uv-5r.jpg" width="450" alt="Baofeng UV-5R"/></a></p>
+
+<p>The magic happens in the software. A <a href="https://github.com/casebeer/afsk">Python based modem library</a> and a relatively simple <a href="https://gist.github.com/Cale/699979c3f597378dfaca">PHP script</a> are the main components driving the project.</p>
+
+<p>Let's dig in. This setup uses <a href="https://www.raspberrypi.org/downloads/raspbian/">Raspian</a>.</p>
+
+<p><strong>Setting up GPS</strong></p>
+
+<p>A simple USB GPS receiver will do just fine for this project. I'm using an old <a href="http://www.amazon.com/DeLorme-Earthmate-U-S-A-DVD-ROM-Windows/dp/B000PIJT3Q">Earthmate LT-20</a>. In order for the Pi to read the GPS data we'll install <a href="http://www.catb.org/gpsd/">gpsd</a>.</p>
+
+```
+sudo apt-get install gpsd gpsd-clients
+```
+
+<p><a href="http://assets.midnightcheese.com/images/earthmate-lt-20-gps.jpg"><img src="http://assets.midnightcheese.com/images/earthmate-lt-20-gps.jpg" width="450" alt="Earthmate LT-20 USB GPS"/></a></p>
+
+<p><strong>Setting up the local web server</strong></p>
+
+<p>The main PHP script will read the gpsd information through a JSON file. We'll need to install apache and PHP to serve the JSON file locally.</p>
+
+```
+sudo apt-get install apache2 -y
+```
+
+```
+sudo apt-get install php5 libapache2-mod-php5 -y
+```
+
+<p><a href="http://git.savannah.gnu.org/cgit/gpsd.git/plain/gpsd.php.in">Drop this file from the gpsd project</a> into the web server directory, /var/www/html/ and name it gpsd.php</p>
+
+<p>Execute gpsd.php from the command line to build a needed configuration file.</p>
+
+```
+cd /var/www/html
+sudo php gpsd.php
+```
+
+<p>If you open a web browser on your Pi and navigate to http://localhost/gpsd.php?op=json with your GPS connected and a clear shot of the sky, you should see position information appear. This is where the main PHP script will be reading the GPS data.</p>
+
+<p><strong>Install Python modem</strong></p>
+
+<p>I mentioned earlier I'm not using a traditional APRS application to generate messages. Instead I'm using a simple Python library called <a href="https://github.com/casebeer/afsk">afsk modem</a>. Install this using pip.</p>
+
+```
+sudo apt-get install python-pip python-dev
+sudo pip install afsk
+```
+
+<p>The optional PyAudio libraries are not required.</p>
+
+<p>This library takes a properly formatted APRS message string as input and generates a Bell 202 AFSK audio sample and AFSK encoded APRS/AX.25 packet.</p>
+
+<p>Make sure the Pi's sound output level is turned up. I set mine to 80.</p>
+
+```
+alsamixer
+```
+
+<p>And finally, be sure Raspi Config is set to play audio through the 3.5mm port, not HDMI.</p>
+
+```
+sudo raspi-config
+```
+
+<p><strong>The main script</strong></p>
+
+<p><a href="https://gist.github.com/Cale/699979c3f597378dfaca">Download the the main PHP script</a> and place it in your Pi's home folder. You'll want to modify the first two variables entering your callsign and any extra message you want transmitted with your position.</p>
+
+<p>Running this file from the command line will show you what's happening.</p>
+
+```
+php aprs-position-beacon.php
+```
+
+<p>Reading in the GPS data, the script converts that to an APRS message string, runs the message through the modem library, outputs a WAV file and then plays the audio file through the Pi's onboard sound card. That triggers the VOX enabled UV-5R and you're now transmitting your position via APRS over RF.</p>
+
+<p>There are several methods to <a href="http://raspberrypi.stackexchange.com/questions/8734/execute-script-on-start-up">run this script automatically at startup</a>.</p>
+
+<p>That's it.</p>
+
+<p>My Raspberry Pi lives in my car and I've attached a mag mount antenna to the Baofeng for better reception.</p>
+
+<p><a href="http://assets.midnightcheese.com/images/diamond-mag-mount-antenna.jpg"><img src="http://assets.midnightcheese.com/images/diamond-mag-mount-antenna.jpg" width="450" alt="Diamond mag mount"/></a></p>
+
+<p>Here are typical results over 7 days of commuting.</p>
+
+<p><a href="http://assets.midnightcheese.com/images/aprs-position-track.jpg"><img src="http://assets.midnightcheese.com/images/aprs-position-track.jpg" width="450" alt="APRS position track"/></a></p>
+
+<p>In the future I'd love to figure out a way to power the Baofeng from the car. Currently I have to take the HT in the house to charge every few days. I also have to turn it on and off each trip to and from the car.</p>
+
+<p>Another potential upgrade may be a 12 watt amp to help improve packet reception in areas where IGates and Digipeaters are scarce.</p>
+
+<p>As a side note, I highly reccommend the Pi B+ or better for this project. I tried the same setup with two different original Pis, but the stray RF passing through the audio cable was strong enough to override the HT's squelch, preventing the HT form transmitting.</p>

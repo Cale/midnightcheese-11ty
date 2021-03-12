@@ -1,0 +1,297 @@
+---
+layout: post
+title: Displaying Twitter and Weather on your Arduino LCD Screen
+date: 2011-10-28 22:08:00
+comments: true
+tags:
+- post
+- Twitter
+- Arduino
+- Weather
+- API
+---
+
+<h1>{{ title }}</h1>
+
+<p>Pieced together from many different sources, the following scripts will allow you to display the Twitter public timeline, the top 20 Twitter trending topics and the current weather on your <a href="http://www.arduino.cc/">Arduino</a> LCD screen. This is done with a PHP script and an Arduino connected to OS X via USB.</p>
+
+<p>You can <a href="/download/arduino-tweet-weather.zip">download the scripts as a zip file</a>.</p>
+
+<p><strong>The Arduino Program</strong>
+The tricky part of this project was getting the text to scroll up the two line LCD screen. In the Arduino program, we're looking to see if a line of text has a special character prefixed to it. Text prefixed with '!' will place the text on line 1. Text prefixed with '@' will place the text on line 2. Sending the  '^' character clears the screen.</p>
+
+<pre>
+<code lang="c">
+#include &lt;liquidcrystal.h&gt;
+#include &lt;wstring.h&gt;
+
+// initialize the library with the numbers of the interface pins
+LiquidCrystal lcd(2, 3, 4, 9, 10, 11, 12);
+
+void setup() {
+  analogWrite(5, 100);    // Set LCD contrast level (0-255)
+  lcd.begin(16, 2);       // Set the LCD's number of rows and columns
+  Serial.begin(9600);     // Initialize communication with serial(USB) port.
+  lcd.print("Hello.");    // Print welcome message to LCD.
+}
+
+int bufferArray[250];     // Our array to store characters arriving from serial port.
+int output = 0;
+int i = 0;
+
+void loop() {
+  int count = Serial.available();
+
+  if (Serial.available() > -1) {
+    delay(1000);
+    for (i=0; i&lt;count ; i++) {
+     bufferArray[i] = Serial.read();          // Put into array
+     output = 1;                              // Show new data has been recieved
+    }
+  }
+
+  if (output != 0) {                          // If new bytes have been recieved
+    int position = 0;
+    if (bufferArray[0] == '!') {              // Print on first line if message begins with '!'
+      lcd.clear();
+      lcd.setCursor(0,0);
+      position = 1;
+    } else if (bufferArray[0] == '@') {       // Print on second line if message begins with '@'
+      lcd.setCursor(0,1);
+      position = 1;
+    } else if (bufferArray[0] == '^') {       // Clear screen if message begins with '^'
+      lcd.clear();
+      lcd.setCursor(0,0);
+      position = 1;
+    } else {
+      lcd.clear();
+      lcd.setCursor(0,0);
+    }
+    int j;
+    for (j = position; j &lt; count; j++) {
+      lcd.write(bufferArray[j]);
+    }
+    output = 0;                               // Don't print on next iteration
+    memset(bufferArray, 0, count);
+    count = 0;
+  }
+}
+</code></pre>
+
+<p><strong>The PHP Script</strong>
+With those rules established, our PHP script can handle the rest. I'm using fun classes like <a href="http://php.net/manual/en/function.wordwrap.php">wordwrap</a> and <a href="http://php.net/manual/en/function.explode.php">explode</a> to break long strings of text into LCD width chunks that are placed into an array, prefixed with our placement characters, and fed to the Arduino.</p>
+
+<pre>
+<code lang="php">
+&lt;?php
+// Include the PHP Serial class.
+include "php_serial.class.osx.php";
+//Define the serial port to use
+define('SERIALPORT','/dev/cu.usbserial-A900adK5');
+
+// Weather
+$zipcode = 37211;
+$title = "Nashville WX.";
+
+// Setup the serial connection
+$serial = new phpSerial;
+$serial->deviceSet(SERIALPORT);
+$serial->confBaudRate(9600);
+
+// Time
+$lastTime = date('D M j H:i:s Y');
+$lastTime = strtotime($lastTime);
+
+// Scroll text up LCD screen
+function scrollChunks($message) {
+  global $serial;
+  $serial->deviceOpen();
+  for ($i=0; $i&lt;count ($message); $i++) {
+    if ($i==0) {
+      $serial->sendMessage($message[$i]);
+    } else if ($i&1 && $i!=0) { // If $i is odd and not zero
+      $serial->sendMessage($message[$i]);
+      sleep(1);
+      $message[$i] = substr_replace($message[$i], "!", 0, 1); // Print on top line !
+      $serial->sendMessage($message[$i]);
+    } else if (!($i&1) && $i!=0) { // If $i is even and not zero
+      $message[$i] = substr_replace($message[$i], "@", 0, 1); // Print on top line @
+      $serial->sendMessage($message[$i]);
+      sleep(1);
+      $message[$i] = substr_replace($message[$i], "!", 0, 1); // Print on top line !
+      $serial->sendMessage($message[$i]);
+    }
+    echo $message[$i]."\n";
+    sleep(1);
+  }
+  sleep(1);
+  $serial->sendMessage(" ");
+  $serial->deviceClose();
+}
+
+// Wordwrap our text to lines no more than 15 characters long.
+// The LCD displays 16 characters at a time, minus a space for our
+// placement character.
+function segmentString($t) {
+  $chunks = wordwrap($t, 15, "\n", true);
+  $chunks = explode("\n", $chunks);
+  // Alternate each line with '!' and '@'
+  for ($i=0; $i&lt;count ($chunks); $i++) {
+    if ($i&1) {
+      $chunks[$i] = "@".$chunks[$i];
+    } else {
+      $chunks[$i] = "!".$chunks[$i];
+    }
+  }
+  scrollChunks($chunks);
+}
+
+function displayRSS() {
+  global $serial;
+  global $title;
+  echo "Display only: ".$title."\n";
+  sleep(3);
+  $serial->deviceOpen();
+  $serial->sendMessage($title);
+  sleep(240);
+  $serial->sendMessage("^");
+  sleep(3);
+  $serial->deviceClose();
+}
+
+function pullWXRSS() {
+  global $zipcode;
+  $yql = "http://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20weather.forecast%20where%20location%3D".$zipcode."&format=json";
+  $session = curl_init($yql);
+  curl_setopt($session, CURLOPT_RETURNTRANSFER,true);
+  $json = curl_exec($session);
+  $json_output =  json_decode($json,true);
+  global $serial;
+  global $title;
+  $title = $json_output['query']['results']['channel']['item']['condition']['temp']."F ".$json_output['query']['results']['channel']['item']['condition']['text'];
+  echo "Pull and Display: ".$title."\n";
+  echo "Waiting a few seconds to display on Arduino...\n\n";
+  sleep(5);
+  $serial->deviceOpen();
+  $serial->sendMessage($title);
+  sleep(240);
+  $serial->deviceClose();
+  sleep(3);
+}
+
+// Display current weather from Yahoo! YQL
+function displayWX() {
+  global $lastTime;
+  global $title;
+
+  $currentTime = date('D M j H:i:s Y');
+  $currentTime = strtotime($currentTime);
+
+  echo "\n\n\n\nCurrent Time: ".$currentTime."\n";
+  echo "Last Time: ".$lastTime."\n";
+
+  $timeDiff = $currentTime - $lastTime;
+  echo "Time Difference: ".$timeDiff."\n";
+
+  // 1 hour = 3600
+  if ($timeDiff>=3605 || $title == "Nashville WX.") {
+    echo "It's been an hour. Pulling WX.\n";
+    $lastTime = $currentTime;
+    pullWXRSS();
+  } else {
+    echo "An hour has not passed. Displaying old WX.\n";
+    displayRSS();
+  }
+  displayPubTimeline();
+}
+
+function displayPubTimeline() {
+  $jsonurl = "http://api.twitter.com/1/statuses/public_timeline.json";
+  $json = file_get_contents($jsonurl,0,null,null);
+  $json_output = json_decode($json,true);
+  foreach ($json_output as $tweet) {
+    $name = $tweet['user']['screen_name'];
+    $text = $tweet['text'];
+    echo "\n\n\n".$name."\n";
+    echo $text."\n\n";
+    global $serial;
+    $serial->deviceOpen();
+    $serial->sendMessage("Twitter User:");
+    sleep(1.5);
+    $serial->sendMessage("@".$name);
+    echo "@".$name."\n";
+    sleep(2);
+    $serial->deviceClose();
+    if (strlen($text) > 16) {
+      segmentString($text);
+    } else {
+      $serial->deviceOpen();
+      $serial->sendMessage($text);
+      $serial->deviceClose();
+    }
+    sleep(5);
+  }
+  sleep(5);
+  displayTopTrends();
+}
+
+function displayTopTrends () {
+  $jsonurl = "http://api.twitter.com/1/trends/daily.json";
+  $json = file_get_contents($jsonurl,0,null,null);
+  $json_output = json_decode($json,true);
+  $json_output = current($json_output['trends']);
+
+  global $serial;
+
+  $serial->deviceOpen();
+  $serial->sendMessage("The top 20");
+  sleep(1);
+  $serial->sendMessage("@Twitter trends:");
+  $serial->deviceClose();
+  sleep(3);
+  echo "\n\nTwitter Trends\n\n";
+
+  foreach ($json_output as $trend) {
+    $trendname = $trend['name'];
+    echo $trendname."\n";
+    $serial->deviceOpen();
+    $serial->sendMessage("^".$trendname);
+    $serial->deviceClose();
+    sleep(15);
+  }
+  $serial->deviceOpen();
+  $serial->sendMessage("^");
+  sleep(1);
+  $serial->deviceClose();
+  sleep(3);
+  displayWX();
+}
+
+displayWX();
+?>
+</code></pre>
+
+<p><strong>PHP Serial Class</strong>
+The PHP script requires an OS X specific serial class to talk with the Arduino board. I'm using <a href="https://gist.github.com/51342">this serial class by Rémy Sanchez</a>, modified by <a href="http://andrewhutchings.com/php-serial-class-for-os-x">Andrew Hutchings</a>. You'll need to define your serial device (which you can find in /dev). It should look something like /dev/cu.usbserial-A900adK5.</p>
+
+<p><strong>Bash Start-up File</strong>
+In addition, due to the way OS X handles communication over the USB connection (you can <a href="https://web.archive.org/web/20110313064208/http://www.mydarkmaterials.co.uk/about/">read more about it here</a>) we need to run a sleep command to prevent the Arduino from resetting itself each time you send data to it.</p>
+
+<pre>
+<code lang="bash">
+#!/bin/bash
+
+# Persist LCD screen (prevent Arduino from resetting)
+
+# OS X
+nohup sleep 360000 < /dev/cu.usbserial-A900adK5 &
+
+# Linux
+#nohup sleep 360000 < /dev/ttyUSB1 &
+#stty -F /dev/ttyUSB1 -hupcl
+
+php tweet-arduino.php
+</code>
+</pre>
+
+<p>That's it. Pass the Arduino program to your Arduino, change the name of your serial device in the PHP script and these scripts should run right out of the box.</p>

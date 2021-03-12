@@ -1,0 +1,99 @@
+---
+layout: post
+title: Broadcast iTunes AirPlay Tracks to Campfire Chat with TrackFire
+status: publish
+type: post
+comments: true
+published: true
+tags:
+- post
+- iTunes
+- Music
+- AppleScript
+- Apple
+---
+
+<h1>{{ title }}</h1>
+
+<p><strong>Update:</strong> <a href="https://github.com/Cale/TrackFire" title="TrackFire on GitHub">TrackFire is now on GitHub</a> for your forking pleasure.</p>
+
+<p>TrackFire is an <a href="http://developer.apple.com/library/mac/#documentation/AppleScript/Conceptual/AppleScriptX/AppleScriptX.html">AppleScript</a> "app" that posts <a href="http://www.apple.com/itunes/">iTunes</a> track titles played over an <a href="http://www.apple.com/itunes/airplay/">AirPlay</a> device to a <a href="http://campfirenow.com/">Campfire</a> chat room.</p>
+
+<p>In the office we often play music from iTunes over an Airport Express device for the entire floor to hear. Inevitably, someone asks, "What band is this?" Being the avid users of Campfire that we are, we thought it would be perfect if iTunes AirPlay tracks could automatically have their name and album info posted to a Campfire chatroom. And so TrackFire took form.</p>
+
+<p>The AppleScript runs every few seconds checking for a running version of iTunes, then if iTunes is in play mode and broadcasting to a specific AirPlay device, the track information is posted to Campfire.</p>
+
+<p>For the most part, the script runs without issue, but an error is thrown every once in a while. "Can't make &laquo;class cFIT&raquo; id 10219 of &laquo;class cUsP&raquo; id 10192 of &laquo;class cSrc&raquo; id 65 of application 'iTunes' into the expected type." (Still tracking down the cause.) Thanks to the folks over at the <a href="https://discussions.apple.com/">Apple Discussion Boards</a> for all their help.</p>
+
+<strong>Installation</strong>
+<ol>
+	<li>Paste the script into AppleScript Editor replacing the Campfire variables with your own information.</li>
+	<li>Save as an Application with "Stay Open" checked. Double-click your new script and it will run in the background.</li>
+	<li> Use iTunes as you normally would and the script does the rest.</li>
+</ol>
+
+<pre><code lang="applescript">
+(* Begin user defined settings ************)
+
+property campfire_token : "1234567" (* Your Campfire API authentication token *)
+property airplay_device : "Apple TV" (* The name of your AirPlay device *)
+property campfire_room : "https://yourname.campfirenow.com/room/123456/speak.xml" (* The Campfire room you'd like to post to *)
+
+(* End user defined settings *************)
+
+global current_track, last_track, current_device
+
+on run
+	(* init at runtime*)
+	set current_track to ""
+	set current_device to ""
+	set last_track to ""
+end run
+
+on idle
+	if application "iTunes" is not running then return 10
+	tell application "iTunes"
+		if (player state is not playing) or (current track is equal to last_track) then return 5
+
+		set last_track to current track
+
+		set minimized of front browser window to false
+		set visible of front browser window to true
+		set current_device to my getDevice()
+		if current_device as string is not equal to airplay_device & " AirPlay" then return 5
+
+		set track_info to my mungeText({name, artist, album} of last_track, "", " :: ")
+		set track_info to track_info as string
+		set track_info to my mungeText(track_info, "&", "&amp;") -- Replace ampersands
+		set track_info to my mungeText(track_info, "\"", "&#34;") -- Replace quotation marks
+		set track_info to my mungeText(track_info, "'", "&#39;") -- Replace apostrophes
+
+		set shellCommand to ("curl -u " & campfire_token & ":X -H 'Content-Type: application/xml' -d '<message><type>TextMessage</type><body>" & track_info & "</body></message>' " & campfire_room)
+		set shellCommand to shellCommand as string
+		do shell script shellCommand
+		(*display dialog shellCommand*)
+		(*log "Posting to Campfire:" & shellCommand*)
+		return 5
+	end tell
+end idle
+
+on getDevice()
+	tell application "System Events"
+		tell process "iTunes"
+			return description of button 8 of window "iTunes"
+		end tell
+	end tell
+end getDevice
+
+on mungeText(itxt, stxt, rtxt)
+	set tid to AppleScript's text item delimiters
+	if class of itxt is text then
+		set AppleScript's text item delimiters to stxt
+		set itxt to text items of itxt
+	end if
+	set AppleScript's text item delimiters to rtxt
+	set otxt to itxt as text
+	set AppleScript's text item delimiters to tid
+	return otxt
+end mungeText
+</code></pre>

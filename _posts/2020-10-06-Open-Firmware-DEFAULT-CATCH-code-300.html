@@ -1,0 +1,18 @@
+---
+title: Open Firmware DEFAULT CATCH! code=300
+date: 2020-10-06 20:31:20
+cdn: 'header-off'
+tags:
+- post
+- Apple
+---
+
+<h1>{{ title }}</h1>
+
+<p>There are a number of <a href="https://discussions.apple.com/thread/8207206">forum posts</a> that focus on a firmware error thrown by older Macs, from PowerBook G3 laptops to some of the early iMacs and G3 towers. All of the posts suggest zapping PRAM and various other software solutions that don't seem to solve the majority of Macs running into the problem.</p>
+
+<p>I recently aquired an old Apple PowerBook G3. It booted up just fine the first time, but every subsequent boot resulted in the <strong>DEFAULT CATCH! code=300</strong> Open Firmware error. I tried booting from a number of bootable CD-Rs (Ubuntu, OS X, OS 9) but that also resulted in the dreaded code=300. The OS X CD wouldn't boot at all. But I noticed the OS 9 CD would get so far before throwing one of those full, freeze the entire OS bomb errors. A common problem due to OS 9's lack of protected memory. Then I noticed the Ubuntu CD would freeze on boot at the RAM disk stage every single time. These were two strong suggestions that the RAM chips might be bad.</p>
+
+<p>Under the PowerBook's keyboard was easy access to the two RAM sticks. I removed one and the system booted completely every time. Swapping the sticks resulted in the code=300 error once more.</p>
+
+<p>If you find yourself working with an old Mac and run into an Open Firmware DEFAULT CATCH! error, there's a good chance your RAM is bad.</p>

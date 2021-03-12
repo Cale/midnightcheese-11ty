@@ -1,0 +1,170 @@
+---
+layout: post
+title: "Building an RSS Reader With Meteor"
+date: 2013-06-27 08:53:00
+comments: true
+tags:
+- post
+- Meteor
+- Javascript
+- RSS
+- API
+- Web Design
+published: true
+---
+
+<h1>{{ title }}</h1>
+
+<p><a href="http://meteor.com/">Meteor</a> is a nifty Javascript based platform that features live page updates as data is changed across browsers and users. With the demise of <a href="http://www.google.com/reader/">Google Reader</a>, I thought an RSS reader might be a good application to put Meteor through its paces. Turns out Meteor does a fantastic job and is a lot of fun to work with.</p>
+
+<p>I named my RSS reader <a href="http://ocular.herokuapp.com/">Ocular</a>. (<a href="http://ocular.herokuapp.com/">Feel free to kick the tires</a>.) With my design background and reading habits in mind, Ocular behaves differently from RSS readers most of us are familiar with. RSS is an amazing tool and a fantastic way to deliver information. The only down-side is the lack of visual design accompanied with most feeds. Ocular solves this by displaying the actual article associated with that feed item.</p>
+
+<a href="http://assets.midnightcheese.com/images/ocular-full-article-large.png"><img src="http://assets.midnightcheese.com/images/ocular-full-article.png" alt="Ocular RSS Reader" /></a>
+
+<p>By showing the actual article, the content's original design is preserved, allowing the user to read content as the author intended. More added bonuses include the ability to see and interact with comments, and if you're generating revenue through advertising, those ads will also be visible to the user.</p>
+
+<p>The other major difference between Ocular and traditional RSS readers is the way Ocular handles new feed content. I'm a very casual reader when it comes to RSS. I don't read every single feed item that is pushed out by major content publishers like <a href="http://www.engadget.com/">Engadget</a> or the <a href="http://nytimes.com/">NY Times</a>. With that in mind, Ocular only checks for feed updates when you're running the app. In my case, I keep Ocular open in a separate tab during the day while I'm working. At night, Ocular is closed and not pulling in updates. Turns out, this works out great because I'm still not missing any content. Sites that post less frequently still get picked up because Ocular is pulling in feed items based on the date of the last item that was pulled in. If one of my favorite sites publishes a few times overnight, those posts will be pulled in in the morning. On the opposite end of the spectrum, if a site like <a href="http://www.theverge.com/">The Verge</a> publishes 30 items overnight, it's possible I might miss a few of the older feed items when I fire up Ocular in the morning. But, I'm not concerned about that because I don't want to read that much content to begin with.</p>
+
+<p>Aside from those differences, Ocular has features you would expect in an RSS reader: Feed lists, unread counts, the ability to mark favorites, etc.</p>
+
+<img src="http://assets.midnightcheese.com/images/ocular-article-list.png" alt="Ocular RSS feed list" />
+
+<p><strong>Meteor technical details</strong><br />
+Here are some methods specific to Meteor that I've found interesting when building this project. I'm somewhat of a novice when it comes to Javascript, so please, feel free to suggest improvements.</p>
+
+<p><strong>Pulling in RSS feeds</strong><br />
+Probably my favorite functionality in this app is all the feed updates happening in the browser using the <a href="https://developers.google.com/feed/">Google Feed API</a>.</p>
+
+<p>Here's a shortened example:</p>
+
+<pre>
+<code lang="javascript">
+.ajax({
+	type: "GET",
+	url: "http://ajax.googleapis.com/ajax/services/feed/load?v=1.0&num=10&q="+url,
+	dataType: "jsonp",
+	success: function( data ) {
+		// If article published date is newer than feed's last published date, add the article to the DB.
+		if ( Date.parse( articles[j]['publishedDate'] ) > lastPublished ) {
+			Meteor.call( 'addArticle', {
+			  feedId: feedId,
+			  title: articles[j]['title'],
+			  url: articles[j]['link'],
+			  publishedDate: articles[j]['publishedDate']
+			}, function( error, result ) {
+			  Meteor.call( 'updateReadCount', feedId, 1);
+			});
+		}
+	}
+});
+</code>
+</pre>
+
+<p>If RSS articles are newer than the last saved RSS articles, we tell Meteor to save that article</p>
+
+<pre>
+<code lang="javascript">
+Meteor.call( 'addArticle' );
+</code>
+</pre>
+
+<p>and update the unread count</p>
+
+<pre>
+<code lang="javascript">
+Meteor.call( 'updateReadCount', feedId, 1);
+</code>
+</pre>
+
+<p>In our model file, those calls look like this:</p>
+
+<pre>
+<code lang="javascript">
+Meteor.methods({
+	addArticle: function( options ) {
+    options = options || {};
+    pubDate = Date.parse( options.publishedDate );
+    return Articles.insert({
+        owner: Meteor.userId(),
+        feedId: options.feedId,
+        title: options.title,
+        url: options.url,
+        publishedDate: pubDate,
+        read: false,
+        favorite: false,
+        share: false
+    });
+  },
+  updateReadCount: function( feedId, num ) {
+    return Feeds.update( feedId, {
+      $inc: { unreadCount: num }
+    });
+  }
+});
+</code>
+</pre>
+
+<p>The beauty of Meteor is, as soon as those DB entries are updated, the template updates the list of articles and the unread count all without a page refresh. It's really exciting when you see that happen for the first time.</p>
+
+<p><strong>Displaying articles</strong><br />
+This is a simple process, but something I had never done before. Using an iframe to house the article, when a user clicks on the feed item they'd like to read, the iframe is populated with the source URL from the feed article and the article is marked as read with a markRead method.</p>
+
+<pre>
+<code lang="javascript">
+// client.js
+Template.articleList.events({
+    'click .article': function( event ) {
+		Meteor.call( 'markRead', this._id );
+	}
+});
+
+// model.js
+markRead: function( articleId ) {
+	return Articles.update( articleId, {
+  		$set: { read: true }
+	});
+}
+</code>
+</pre>
+
+<p><strong>User accounts</strong><br />
+A nice add-on tool is the <a href="http://docs.meteor.com/#accountsui">accounts-ui package</a> that makes dealing with user accounts quick and easy. In the template, adding the login/account UI is as simple as adding a single line:</p>
+
+<pre>
+<code lang="html">
+&#60;div class="header"&#62;
+	&#123;&#123;loginButtons&#125;&#125;
+&#60;/div&#62;
+</code>
+</pre>
+
+<p>Then in the client file we can do things like check to see if the user is logged in and do actions based on that state:</p>
+
+<pre>
+<code lang="javascript">
+// If user is logged in, show a div.
+if ( Meteor.user() ) {
+	$( "div" ).show();
+}
+</code>
+</pre>
+
+<p>Pulling in data based on the logged in user looks like this in the client file:</p>
+
+<pre>
+<code lang="javascript">
+var feeds = Feeds.find({$or: [{owner: Meteor.userId()}]}, {sort: {"title": 1}}).fetch();
+</code>
+</pre>
+
+<p>That pulls in a list of RSS feeds associated with that user and sorts them alphabetically by title.</p>
+
+<p><strong>Large data</strong><br />
+The one drawback facing the current iteration of Ocular is sluggishness around updating large sets of data. If I have an unread count pushing 1,000+ items and I mark all items as read, Meteor takes several seconds to make those changes to each record and apply a "read" class to each html element in the template. I don't know if the hang-up is on the DB side or the template markup side. I'm sure there's a better way to optimize my approach, but that's something I'm still learning.</p>
+
+<p><strong>A great experience</strong><br />
+All-in-all Meteor has been a lot of fun. I wish I was doing more to take advantage of the power of live page updates. Something like a list of articles marked as favorites across all users in real time could be fun.</p>
+
+<p>For someone somewhat new to the deep depths of Javascript, I found Meteor to be relatively smooth sailing. <a href="http://docs.meteor.com/">Documentation</a> is well done and it was rare that I encountered any major roadblocks. If you're interested in Meteor, definitely give it a try. I'm already thinking about what I can build next.</p>
+
+<p><strong>Update:</strong> I get a lot of requests to see the entire application code so I've <a href="https://github.com/Cale/ocular">posted the project to GitHub</a>. I hope this helps others starting out with Meteor.
