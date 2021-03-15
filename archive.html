@@ -1,0 +1,21 @@
+---
+layout: post.njk
+title: All posts on Midnight Cheese
+pagination:
+  data: collections.post
+  size: 10000
+  reverse: true
+  alias: posts
+---
+<h1>Midnight Cheese Archive</h1>
+
+<p>This is a list of every post on Midnight Cheese, all on one page.</p>
+
+{% for post in posts %}
+  <div>
+    <h2>
+      <a href="{{ post.url | url }}">{{ post.data.title }}</a>
+    </h2>
+    <p class="date">{{ post.date | date: "%B %d, %Y" }}</p>
+  </div>
+{% endfor %}

@@ -1,17 +1,21 @@
 ---
-layout: page.njk
+layout: post.njk
 pagination:
   data: collections.post
   size: 10
   reverse: true
   alias: posts
 ---
+<h1 class="full-bleed">Welcome to Midnight Cheese. Blogging since 2001.</h1>
+
+<p>Midnight Cheese is a hodgepodge of design and technology related musings. The ten most recent posts are featured on this page. See the <a href="/archive">archive</a> for more. Learn all about Midnight Cheese on the <a href="/about/">about page</a>.</p>
+
 {% for post in posts %}
-  <article>
-    <h1>
+  <div>
+    <h2>
       <a href="{{ post.url | url }}">{{ post.data.title }}</a>
-    </h1>
+    </h2>
     <p>{{ post.data.post_excerpt }}</p>
-    <p class="date">{{ post.date }}</p>
-  </article>
+    <p class="date">{{ post.date | date: "%B %d, %Y" }}</p>
+  </div>
 {% endfor %}

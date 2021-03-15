@@ -103,6 +103,17 @@ h1.full-bleed {
 
 h2 {
   font-weight: normal;
+  margin-top: 3rem;
+  margin-bottom: 1rem;
+}
+
+div h2 a {
+  font-weight: normal;
+  line-height: 3rem;
+}
+
+div p {
+  margin-top: 0;
   margin-bottom: 0;
 }
 
