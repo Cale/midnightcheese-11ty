@@ -1,7 +1,12 @@
 body {
-  font-family: sans-serif;
+  background-color: #ccc;
+  font-family: 'Noto Sans', sans-serif;
   margin: 0;
   padding: 0;
+}
+
+main {
+  background-color: #fff;
 }
 
 header {
@@ -33,27 +38,40 @@ a.logo:hover {
   border-bottom: 3px hidden transparent;
 }
 
-h1 {
-  font-family: 'Castoro', serif;
-  font-size: 3rem;
-  font-weight: 400;
+article {
+  font-size: 1.2rem;
+  line-height: 1.95rem;
+  padding: 3rem 0 3rem 0;
 }
 
-h1.full-bleed {
-  text-align: center;
+article img {
+  display: block;
+  max-width: 100%;
 }
 
 .date {
   color: #aaa;
 }
 
-article {
-  margin-top: 3rem;
+h1 {
+  font-family: 'Castoro', serif;
+  font-size: 3rem;
+  font-weight: 400;
+  line-height: normal;
 }
 
-article img {
-  display: block;
-  max-width: 100%;
+h1.full-bleed {
+  text-align: center;
+}
+
+h2 {
+  font-weight: normal;
+  margin-bottom: 0;
+}
+
+footer {
+  background-color: #ddd;
+  text-align: center;
 }
 
 .wrapper {
