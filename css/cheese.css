@@ -1,8 +1,28 @@
 body {
-  background-color: #ccc;
+  background-color: #20c3f9;
+  color: #00171e;
   font-family: 'Noto Sans', sans-serif;
   margin: 0;
   padding: 0;
+}
+
+a {
+  color: #029dd1;
+  text-decoration-color: #029dd1;
+  text-underline-offset: .3em;
+  text-decoration-style: dotted;
+  text-decoration-thickness: .125em;
+}
+
+a:hover {
+  background-color: #5dfca4;
+  color: #00171e;
+  text-decoration-color: #00171e;
+}
+
+::selection {
+  color: #00171e;
+  background-color: #5dfca4;
 }
 
 main {
@@ -10,12 +30,19 @@ main {
 }
 
 header {
-  background-color: #ddd;
+  background-color: #20c3f9;
+  background-image:
+    linear-gradient(
+      to right,
+      #20c3f9, #20f92e
+    );
+  color: #fff;
   padding: .25rem 2rem;
 }
 
 header a {
-  border-bottom: 2px solid transparent;
+  color: #def4fc;
+  font-weight: bold;
   margin-right: 2rem;
   text-decoration: none;
   text-transform: uppercase;
@@ -23,19 +50,29 @@ header a {
 
 header a:hover {
   animation-name: nav;
-  animation-duration: 1s;
-  border-bottom: 3px dotted black;
+  animation-duration: .5s;
+  background-color: transparent;
+  color: #fff;
+  text-decoration: underline;
+  text-decoration-color: #000;
+  text-underline-offset: .3em;
+  text-decoration-style: dotted;
+  text-decoration-thickness: .2em;
 }
 
 .logo {
-  border-bottom: none;
+  color: #fff;
   font-family: 'Grenze Gotisch', cursive;
   font-size: 3rem;
+  font-weight: normal;
   text-transform: capitalize;
 }
 
 a.logo:hover {
-  border-bottom: 3px hidden transparent;
+  animation-name: none;
+  color: #fff;
+  font-weight: normal;
+  text-decoration: none;
 }
 
 article {
@@ -70,8 +107,20 @@ h2 {
 }
 
 footer {
-  background-color: #ddd;
+  background-color: #20c3f9;
+  padding: 1rem 0 1rem 0;
   text-align: center;
+}
+
+footer a {
+  color: #00171e;
+  text-decoration-color: #00171e;
+}
+
+footer a:hover {
+  background-color: transparent;
+  color: #fff;
+  text-decoration-color: #fff;
 }
 
 .wrapper {
@@ -90,6 +139,12 @@ footer {
 }
 
 @keyframes nav {
-  from {border-color: transparent;}
-  to {border-color: black;}
+  from {
+    color: #def4fc;
+    text-decoration-color: transparent;
+  }
+  to {
+    color: #fff;
+    text-decoration-color: #000;
+  }
 }
