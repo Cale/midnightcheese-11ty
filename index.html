@@ -12,6 +12,6 @@ pagination:
       <a href="{{ post.url | url }}">{{ post.data.title }}</a>
     </h1>
     <p>{{ post.data.post_excerpt }}</p>
-    {{ post.date }}
+    <p class="date">{{ post.date }}</p>
   </article>
 {% endfor %}

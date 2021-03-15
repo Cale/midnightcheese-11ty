@@ -6,12 +6,21 @@ title: Midnight Cheese Blog
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Castoro&family=Grenze+Gotisch:wght@500&display=swap" rel="stylesheet"> 
     <link rel="stylesheet" href="/css/cheese.css">
     <title>{{ title }}</title>
   </head>
   <body>
-    <header><a href="/" title="Home">Midnight Cheese</a></header>
-    <nav></nav>
+    <header>
+      <nav>
+        <a href="/" title="Home" class="logo">Midnight Cheese</a>
+        <a href="/about/" title="About Midnight Cheese">About</a>
+        <a href="" title="Post tags">Tags</a>
+        <a href="" title="List of all posts">Archive</a>
+        <a href="/atom.xml" title="RSS feed">RSS</a>
+      </nav>
+    </header>
     {{ content | safe }}
     <footer></footer>
   </body>
