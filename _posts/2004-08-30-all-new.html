@@ -7,6 +7,6 @@ comments: true
 published: true
 ---
 
-<h1 class="full-bleed">{{ title }}</h1><p class="date">{{ date }}</p>
+<h1 class="full-bleed">{{ title }}</h1><p class="date">{{ date | date: "%B %d, %Y"}}</p>
 
 <p>The blog page is all new. I've switched over from <a href="http://www.noahgrey.com/greysoft/">Greymatter</a> to <a href="http://wordpress.org/">WordPress</a> which brings full <a href="http://validator.w3.org/">w3c</a> XHTML compliant code. Coupled with some mean CSS, this should mean a consistant viewing experience across all modern browsers and OSs. There's still a lot to do, including recoding the rest of the site, and hopefully putting in a better menu system.</p>

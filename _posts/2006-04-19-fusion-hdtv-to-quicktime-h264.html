@@ -7,7 +7,7 @@ comments: true
 published: true
 ---
 
-<h1 class="full-bleed">{{ title }}</h1><p class="date">{{ date }}</p>
+<h1 class="full-bleed">{{ title }}</h1><p class="date">{{ date | date: "%B %d, %Y"}}</p>
 
 <p>I've been playing around with the <a href="http://www.dvico.com/">DViCO</a> Fusion HDTV tuner card in my PC trying to find an easy way to export a clip as a 720p H.264 file playable in QuickTime. Well, of course, there is no easy way. The card records clips in its own special format that nothing but mplayer can seem to play back. That means you can't just drop the clips into QuickTime and export away. So if you have one of the DViCO Fusion HDTV Cards, here's a little how-to on getting your recordings into an H.264 QuickTime. (This is largely adapted from the efforts by <a href="http://davemoore.org/blog/archives/2005/02/streaming_video.html">davemoore.org</a>.)</p>
 

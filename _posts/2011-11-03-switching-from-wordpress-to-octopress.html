@@ -9,7 +9,7 @@ tags:
 - Web Design
 ---
 
-<h1 class="full-bleed">{{ title }}</h1><p class="date">{{ date }}</p>
+<h1 class="full-bleed">{{ title }}</h1><p class="date">{{ date | date: "%B %d, %Y"}}</p>
 
 <p>Today marks yet another milestone for Midnight Cheese by successfully making the migration from <a href="http://wordpress.org/">WordPress</a> to <a href="http://octopress.org/">Octopress</a>. With web trends moving toward fast, light, and responsive, my WordPress setup was becoming slow, bloated, and stagnant. WordPress functions well, but for a single user it was just too large of a feature set. The slow page-load times really made this obvious.</p>
 

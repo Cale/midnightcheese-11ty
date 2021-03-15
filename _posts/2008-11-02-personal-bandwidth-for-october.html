@@ -7,7 +7,7 @@ comments: true
 published: true
 ---
 
-<h1 class="full-bleed">{{ title }}</h1><p class="date">{{ date }}</p>
+<h1 class="full-bleed">{{ title }}</h1><p class="date">{{ date | date: "%B %d, %Y"}}</p>
 
 <p>Since Comcast <a href="http://www.midnightcheese.com/2008/08/comcasts-bandwidth-caps-are-pretty-much-unavoidable/">announced their 250GB per month bandwidth caps</a> I decided to start tracking my monthly usage. So far I'm well below the limit at 25GB in/4GB out for the month of October.</p>
 

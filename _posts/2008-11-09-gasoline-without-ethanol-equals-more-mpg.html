@@ -10,7 +10,7 @@ comments: true
 published: true
 ---
 
-<h1 class="full-bleed">{{ title }}</h1><p class="date">{{ date }}</p>
+<h1 class="full-bleed">{{ title }}</h1><p class="date">{{ date | date: "%B %d, %Y"}}</p>
 
 <p>I recently found a local gas station that only sells gasoline that is <a href="http://en.wikipedia.org/wiki/Ethanol#As_a_fuel">ethanol</a>-free. I've been keeping track of my mileage over the last several weeks to see what the difference is between buying ethanol-free gasoline vs. most gasolines which contain up to 10% ethanol.</p>
 

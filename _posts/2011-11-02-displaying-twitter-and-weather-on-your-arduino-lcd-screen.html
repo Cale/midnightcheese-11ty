@@ -11,7 +11,7 @@ tags:
 - API
 ---
 
-<h1 class="full-bleed">{{ title }}</h1><p class="date">{{ date }}</p>
+<h1 class="full-bleed">{{ title }}</h1><p class="date">{{ date | date: "%B %d, %Y"}}</p>
 
 <p>Pieced together from many different sources, the following scripts will allow you to display the Twitter public timeline, the top 20 Twitter trending topics and the current weather on your <a href="http://www.arduino.cc/">Arduino</a> LCD screen. This is done with a PHP script and an Arduino connected to OS X via USB.</p>
 

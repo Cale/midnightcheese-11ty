@@ -10,7 +10,7 @@ comments: true
 published: true
 ---
 
-<h1 class="full-bleed">{{ title }}</h1><p class="date">{{ date }}</p>
+<h1 class="full-bleed">{{ title }}</h1><p class="date">{{ date | date: "%B %d, %Y"}}</p>
 
 <p>With the <a href="http://www.midnightcheese.com/2009/04/murfreesboro-tornado/">often active tornado season</a> in Middle Tennessee I've been meaning to buy a weather radio. But first I wanted to see if my home server could do the job for me. Using <a href="http://www.linux.org/apps/AppId_2367.html">beep</a>, <a href="http://en.wikipedia.org/wiki/Cron">cron</a>, and the <a href="http://wiki.wunderground.com/index.php/API_-_XML">weather API</a> from <a href="http://www.wunderground.com/">Weather Underground</a>, I've crafted a homebrew weather alert system.</p>
 

@@ -7,6 +7,6 @@ comments: true
 published: true
 ---
 
-<h1 class="full-bleed">{{ title }}</h1><p class="date">{{ date }}</p>
+<h1 class="full-bleed">{{ title }}</h1><p class="date">{{ date | date: "%B %d, %Y"}}</p>
 
 <p>Today I taught myself how to write a <a href="http://mycroft.mozdev.org/download.html">search plug-in</a> for <a href="http://www.mozilla.org/">Firefox</a>. I made one for <a href="http://www.tapeonline.com/store/Default.asp">tapeonline.com</a> that easily installs with a single click of the mouse. You can test it out <a href="http://www.tapeonline.com/firefox/">here</a>.</p>

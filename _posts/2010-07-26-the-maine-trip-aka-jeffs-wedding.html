@@ -10,7 +10,7 @@ comments: true
 published: true
 ---
 
-<h1 class="full-bleed">{{ title }}</h1><p class="date">{{ date }}</p>
+<h1 class="full-bleed">{{ title }}</h1><p class="date">{{ date | date: "%B %d, %Y"}}</p>
 
 <p><iframe src="http://www.google.com/latitude/apps/badge/api?user=3565205032732348262&type=iframe&maptype=terrain&z=7" width="420" height="250" frameborder="0"></iframe></p>
 

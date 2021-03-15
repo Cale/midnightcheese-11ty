@@ -7,6 +7,6 @@ comments: true
 published: true
 ---
 
-<h1 class="full-bleed">{{ title }}</h1><p class="date">{{ date }}</p>
+<h1 class="full-bleed">{{ title }}</h1><p class="date">{{ date | date: "%B %d, %Y"}}</p>
 
 <p>I finally bit the bullet and turned off DHCP on my router. Including my roommate's machines, we have up to 5 computers running at once. That includes a <a href="http://www.goteamspeak.com/">TeamSpeak</a> server, plus the <a href="http://camsource.sourceforge.net/">webcam server</a> which runs the <a href="http://www.midnightcheese.com/index.php?page_id=346">CheeseCam</a>. Lately the router has decided to renew the DHCP lease on all these machines often. It seems the power goes out around here quite often as well, which also adds to the constant lease renewal. Of course, this means all these machines are assigned new IP addresses every time, which meant me having to go in and reset the port forwarding for the TeamSpeak and webcam servers every time as well. Not to mention my roommate calling me every other night asking me to fix the server. So I've finally switched to static IP addresses and hopefully will be leaving all this hassle behind.</p>

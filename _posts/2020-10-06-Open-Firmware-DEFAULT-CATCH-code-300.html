@@ -7,7 +7,7 @@ tags:
 - Apple
 ---
 
-<h1 class="full-bleed">{{ title }}</h1><p class="date">{{ date }}</p>
+<h1 class="full-bleed">{{ title }}</h1><p class="date">{{ date | date: "%B %d, %Y"}}</p>
 
 <p>There are a number of <a href="https://discussions.apple.com/thread/8207206">forum posts</a> that focus on a firmware error thrown by older Macs, from PowerBook G3 laptops to some of the early iMacs and G3 towers. All of the posts suggest zapping PRAM and various other software solutions that don't seem to solve the majority of Macs running into the problem.</p>
 

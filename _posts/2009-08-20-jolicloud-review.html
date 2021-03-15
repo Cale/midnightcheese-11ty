@@ -10,7 +10,7 @@ comments: true
 published: true
 ---
 
-<h1 class="full-bleed">{{ title }}</h1><p class="date">{{ date }}</p>
+<h1 class="full-bleed">{{ title }}</h1><p class="date">{{ date | date: "%B %d, %Y"}}</p>
 
 <p><a href="http://www.jolicloud.com/">Jolicloud</a> is a Linux based OS that's blurring the lines between web apps and desktop apps. They do this by "installing" web apps such as Flickr and Facebook right along side traditional apps like Firefox and Pidgin. Want to use Twitter or Google Maps? Just click the application icon on your desktop like you would any other application. What Google hopes to do with their upcoming <a href="http://googleblog.blogspot.com/2009/07/introducing-google-chrome-os.html">Chrome OS</a>, Jolicloud seems to have already accomplished.</p>
 

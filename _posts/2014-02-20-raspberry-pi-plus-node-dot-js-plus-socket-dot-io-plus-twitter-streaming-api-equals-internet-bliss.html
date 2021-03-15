@@ -13,7 +13,7 @@ tags:
 published: true
 ---
 
-<h1 class="full-bleed">{{ title }}</h1><p class="date">{{ date }}</p>
+<h1 class="full-bleed">{{ title }}</h1><p class="date">{{ date | date: "%B %d, %Y"}}</p>
 
 <p>I've had an idea floating around for to build a tiny web app that does nothing but display new Tweets as they roll in from my <a href="https://dev.twitter.com/docs/streaming-apis/streams/user">Twitter User Stream</a>. I envisioned displaying the resulting feed on a spare laptop or an old smartphone 24/7. <a href="http://nodejs.org/">Node.js</a> felt like it might be a good solution to make that happen. After reading through the Node docs and a quick <a href="http://stackoverflow.com/questions/16427039/displaying-streaming-twitter-on-webpage-with-socket-io-node-js">search on Stackoverflow</a>, I found a great example of making this project happen with both Node.js and <a href="http://socket.io/">Socket.IO</a>.</p>
 

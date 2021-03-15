@@ -7,6 +7,6 @@ comments: true
 published: true
 ---
 
-<h1 class="full-bleed">{{ title }}</h1><p class="date">{{ date }}</p>
+<h1 class="full-bleed">{{ title }}</h1><p class="date">{{ date | date: "%B %d, %Y"}}</p>
 
 <p>The webcam is up and working again. The drivers for the camera weren't working out on Linux, and I finally came across a driver for OS X, so now it's running natively under OS X rather than under classic under OS X. The <a href="http://webcam-osx.sourceforge.net/">driver</a> is by no means accurate, however, so the picture may be funky every now and then.</p>

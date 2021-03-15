@@ -13,7 +13,7 @@ tags:
 published: true
 ---
 
-<h1 class="full-bleed">{{ title }}</h1><p class="date">{{ date }}</p>
+<h1 class="full-bleed">{{ title }}</h1><p class="date">{{ date | date: "%B %d, %Y"}}</p>
 
 <p><a href="http://meteor.com/">Meteor</a> is a nifty Javascript based platform that features live page updates as data is changed across browsers and users. With the demise of <a href="http://www.google.com/reader/">Google Reader</a>, I thought an RSS reader might be a good application to put Meteor through its paces. Turns out Meteor does a fantastic job and is a lot of fun to work with.</p>
 
