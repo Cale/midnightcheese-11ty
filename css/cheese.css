@@ -117,6 +117,60 @@ div p {
   margin-bottom: 0;
 }
 
+.tags-list {
+  list-style-type: none;
+  text-align: center;
+}
+
+.tags-list li {
+  display: inline-block;
+}
+
+.tags-list li a {
+  background-color: #eee;
+  border: 2px solid transparent;
+  border-radius: 20px;
+  color: #00171e;
+  display: block;
+  margin: .25rem;
+  padding: 1rem;
+  text-decoration: none;
+}
+
+.tags-list li a:hover {
+  background-color: #fff;
+  border: 2px solid #ddd;
+  color: #00171e;
+}
+
+.tagged-posts {
+  list-style-type: none;
+}
+
+.tagged-posts li {
+  border: 2px solid transparent;
+  margin-bottom: 1rem;
+}
+
+.tag {
+  background-color: #ddd;
+  border: 2px solid transparent;
+  border-radius: 5px;
+  color: #00171e;
+  padding: .25rem;
+  text-decoration: none;
+}
+
+.tag:hover {
+  background-color: #fff;
+  border: 2px solid #ddd;
+  color: #00171e;
+}
+
+time, .tag {
+  font-size: .85rem;
+}
+
 footer {
   background-color: #20c3f9;
   padding: 1rem 0 1rem 0;

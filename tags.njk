@@ -18,17 +18,17 @@ permalink: /tags/{{ tag | slug }}/
 <h1>Tagged “{{ tag }}”</h1>
 
 {% set postslist = collections[ tag ] %}
-<ul>
+<ul class="tagged-posts">
     {% for post in postslist | reverse %}
       <li>
-        <a href="{{ post.url | url }}">{{ post.data.title }}</a>
-        <time datetime="{{ post.date | formatDate }}" class="date">{{ post.date | formatDate }}</time>
+        <a href="{{ post.url | url }}">{{ post.data.title }}</a><br>
+        <time datetime="{{ post.date | formatDate }}" class="date">{{ post.date | formatDate }}</time><br>
         {% for tag in post.data.tags | filterTagList %}
           {% set tagUrl %}/tags/{{ tag | slug }}/{% endset %}
-          <a href="{{ tagUrl | url }}">{{ tag }}</a>
+          <a class="tag" href="{{ tagUrl | url }}">{{ tag }}</a>
         {% endfor %}
       </li>
     {% endfor %}
 </ul>
 
-<p>See <a href="{{ '/tags/' | url }}">all tags</a>.</p>
+<p>See <a href="{{ '/tags/' | url }}">all tags</a></p>
