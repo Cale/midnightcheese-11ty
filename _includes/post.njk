@@ -4,18 +4,18 @@ layout: page.njk
     <main>
       <article class="wrapper">
         {{ content | safe }}
+        <div id="disqus_thread"></div>
       </article>
     </main>
-    <script type="text/javascript">
-        var disqus_shortname = "midnightcheese";
-        var disqus_identifier = "https://midnightcheese.com/{{ page.date | formatDisqusDate }}/{{ page.fileSlug }}/";
-        var disqus_url = "https://midnightcheese.com/{{ page.date | formatDisqusDate }}/{{ page.fileSlug }}/";
-
-        (function () {
-            var dsq = document.createElement('script');
-            dsq.type = 'text/javascript';
-            dsq.async = true;
-            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    <script>
+        var disqus_config = function () {
+        this.page.url = "https://midnightcheese.com/{{ page.date | formatDisqusDate }}/{{ page.fileSlug }}/"
+        this.page.identifier = "https://midnightcheese.com/{{ page.date | formatDisqusDate }}/{{ page.fileSlug }}/"
+        };
+        (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        s.src = 'https://midnightcheese.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
         })();
     </script>

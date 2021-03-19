@@ -117,6 +117,10 @@ div p {
   margin-bottom: 0;
 }
 
+#disqus_thread {
+  margin-top: 6rem;
+}
+
 .tags-list {
   list-style-type: none;
   text-align: center;
