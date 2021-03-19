@@ -17,6 +17,10 @@ module.exports = function(eleventyConfig) {
     return DateTime.fromJSDate(dateObj, {zone: 'utc'}).toFormat("LLLL d, yyyy");
   });
 
+  eleventyConfig.addFilter("formatDisqusDate", dateObj => {
+    return DateTime.fromJSDate(dateObj, {zone: 'utc'}).toFormat("yyyy/MM");
+  });
+
   eleventyConfig.addCollection("tagList", function(collection) {
     let tagSet = new Set();
     collection.getAll().forEach(item => {
