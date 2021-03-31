@@ -1,0 +1,20 @@
+---
+title: Moving from Hexo to 11ty
+date: 2021-03-30
+post_excerpt: This site is now generated using the static site generator, Eleventy.
+tags:
+- post
+- Eleventy
+- Web Design
+- HTML
+---
+
+<h1 class="full-bleed">{{ title }}</h1><p class="date">{{ date | date: "%B %d, %Y"}}</p>
+
+<p>This blog is now generated using <a href="https://www.11ty.dev/">Eleventy</a>! I recently moved everything over from <a href="https://hexo.io/">Hexo</a> for a multitude of reasons. Primarily, the template I was using was bloated with unnecessary logic, markup, and various JS libraries. I didn't like the idea of using a template when I could instead build and design something from scratch. It didn't feel right not having a custom approach. In addition, Hexo had a number of <a href="https://github.com/hexojs/hexo/issues/4325">outstanding bugs</a> with caching that was making development nearly impossible.</p>
+
+<p>This isn't a how-to on moving away from Hexo, but a number of sources helped me along the way. CSS layout is based very closely on Josh Comaeu's <a href="https://www.joshwcomeau.com/css/full-bleed/">Full-Bleed Layout Using CSS Grid</a>. This is the first time I've incorporated CSS grid on this site and I was surprised to see how simplified the layout process has become. Utilizing this example took minutes as opposed to hours using other methods. Eleventy setup was sourced heavily from <a href="https://alexpearce.me/2020/06/jekyll-to-eleventy/">Alex Pearce</a>, especially getting the date based URL structure right. In addition, I had a handful of excellent examples from <a href="https://treypiepmeier.com/">Trey</a>, <a href="https://joshmock.com/">Josh</a>, and <a href="https://alexezell.com/">Alex</a>. Trey has a great <a href="https://github.com/trey/blank2">11ty starter project</a> with <a href="https://sass-lang.com/">Sass</a> and Netlify support.</p>
+
+<p>I've enjoyed a more manual approach with this project. The CSS is so minimal, I decided against an extension, though I love Sass for large projects. Same with markup. I'm writing HTML elements manually as opposed to using Markdown. Markdown has its place, I just really enjoy writing HTML elements "by hand."</p>
+
+<p>11ty is the 6th tool I've used to publish this site since 2001. It started with Blogger, then <a href="https://en.wikipedia.org/wiki/Greymatter_(software)">Greymatter</a>, moved to WordPress, then <a href="http://midnightcheese.com/2011/11/switching-from-wordpress-to-octopress/">Octopress</a>, Hexo, and now Eleventy. This tool feels the most manageable and flexible so far and I hope to stick with it for a long time. Or at least until the next shiny new tool starts trending. This <a href="https://github.com/Cale/midnightcheese-11ty">project is viewable on GitHub</a>.</p>
