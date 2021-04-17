@@ -221,10 +221,18 @@ footer a:hover {
 @media screen and (max-width: 740px) {
     header a {
       font-size: .85rem;
+      margin-left: .5rem;
+      margin-right: .5rem;
+      text-align: center;
+    }
+    nav {
+      text-align: center;
     }
     .logo {
       display: block;
       font-size: 2rem;
+      margin: 0;
+      text-align: center;
     }
     .full-bleed {
       grid-column: 2;
