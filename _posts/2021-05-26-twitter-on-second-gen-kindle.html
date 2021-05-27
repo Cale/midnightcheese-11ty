@@ -1,0 +1,26 @@
+---
+title: Twitter on a 2nd Generation Kindle
+date: 2021-05-26
+post_excerpt: Vintage computing with a free internet connection.
+tags:
+- post
+- HTML
+- Twitter
+- API
+---
+
+<h1 class="full-bleed">{{ title }}</h1><p class="date">{{ date | date: "%B %d, %Y"}}</p>
+
+<p>I recently created a Twitter appliance using an old <a href="https://www.cnet.com/reviews/amazon-kindle-second-generation-review/">second generation Kindle</a>.</p>
+
+<p>The allure of <a href="https://www.reddit.com/r/retrobattlestations/">vintage computing</a> has been strong so I figured what better device to play with than an older second generation Kindle. The best feature of this old e-reader is the built-in "free forever" 3G internet access that came with the device. The purpose of the free internet connection was to purchase and download e-books from any location. A relatively low bandwidth and presumably low cost feature that Amazon could easily afford from all the ensuing e-book purchases.</p>
+
+<p><img src="https://assets.midnightcheese.com/images/twitter-timeline-on-kindle.jpg" alt="Second Generation Amazon Kindle with Twitter" width="900"></p>
+
+<p>Amazon also included an "experimental" web browser. At the time, just about every website was accessible in all the black and white glory an e-ink screen could provide. Catching up on news and social media was possible. Today, not so much. When this Kindle was first released https wasn't a thing outside of checkout flows. Now, with the ubiquity of https, this Kindle's experimental web browser can display almost zero modern websites because the browser doesn't support https.</p>
+
+<p>Enter the lo-fi web. Sites like <a href="http://68k.news/">68k.news</a> and the <a href="http://frogfind.com/">FrogFind!</a> search engine breathe new life into an old browser. With those sites as inspiration, I whipped up a bare bones version of my Twitter feed and pointed the Kindle's web browser right at it. Success! It's nothing more than using the Twitter API to surface the latest Tweets and their associated user avatars. No interaction other than paging through the results and hitting refresh for more.</p>
+
+<p>Initially I tried to include image media but doing so quickly exhausted the limited amount of available RAM and crashed the browser.</p>
+
+<p>The result is the modern web experienced through a slow, low resolution computing lens. It may not be much, but it's fun to revitalize this old hardware. And it's tough to beat a free connection to the world wide web.</p>
