@@ -6,8 +6,7 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.addPlugin(pluginRss);
   eleventyConfig.addPassthroughCopy('css');
   eleventyConfig.setFrontMatterParsingOptions({
-    excerpt: true,
-    excerpt_alias: 'post_excerpt'
+    excerpt: true
   });
 
   eleventyConfig.addPlugin(pluginSEO, {
