@@ -1,5 +1,6 @@
 const pluginRss = require("@11ty/eleventy-plugin-rss");
 const { DateTime } = require("luxon");
+const pluginSEO = require("eleventy-plugin-seo");
 
 module.exports = function(eleventyConfig) {
   eleventyConfig.addPlugin(pluginRss);
@@ -7,6 +8,18 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.setFrontMatterParsingOptions({
     excerpt: true,
     excerpt_alias: 'post_excerpt'
+  });
+
+  eleventyConfig.addPlugin(pluginSEO, {
+    title: "Midnight Cheese",
+    description: "A hodgepodge of design and technology related musings. Topics include UX Design, Linux, Apple, Ham Radio, and more.",
+    url: "https://midnightcheese.com",
+    author: "Cale Mooth",
+    twitter: "calem",
+    image: "https://assets.midnightcheese.com/images/midnight-cheese-gradient.png",
+    options: {
+      titleStyle: "minimalistic"
+    }
   });
 
   eleventyConfig.addFilter("filterTagList", tags => {
