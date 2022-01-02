@@ -2,7 +2,8 @@
 layout: post
 title: "Raspberry Pi + Node.js + Socket.IO + Twitter Streaming API = Internet Bliss"
 date: 2014-02-27 08:52:00
-comments: true
+excerpt: A tiny web app that displays new Tweets as they roll in from a Twitter User Stream.
+image: http://assets.midnightcheese.com/images/twitter-node.gif
 tags:
 - post
 - Node
@@ -10,28 +11,30 @@ tags:
 - Twitter
 - Javascript
 - Web Design
-published: true
 ---
 
 <h1 class="full-bleed">{{ title }}</h1><p class="date">{{ date | date: "%B %d, %Y"}}</p>
+
+<p><strong>Update:</strong> Twitter no longer offers the Streaming API option.</p>
 
 <p>I've had an idea floating around for to build a tiny web app that does nothing but display new Tweets as they roll in from my <a href="https://dev.twitter.com/docs/streaming-apis/streams/user">Twitter User Stream</a>. I envisioned displaying the resulting feed on a spare laptop or an old smartphone 24/7. <a href="http://nodejs.org/">Node.js</a> felt like it might be a good solution to make that happen. After reading through the Node docs and a quick <a href="http://stackoverflow.com/questions/16427039/displaying-streaming-twitter-on-webpage-with-socket-io-node-js">search on Stackoverflow</a>, I found a great example of making this project happen with both Node.js and <a href="http://socket.io/">Socket.IO</a>.</p>
 
 <p>Here's a look at my version of this app which also includes a bit of CSS to make things look better in the browser.</p>
 
-<p><img src="http://assets.midnightcheese.com/images/twitter-node.gif" width="389" height="285" alt="Node.js Twitter stream"></p>
+<p><img src="http://assets.midnightcheese.com/images/twitter-node.gif" alt="Node.js Twitter stream"></p>
 
-<p>Check out the end result <a href="http://pi.midnightcheese.com:4040">running on my Raspberry Pi</a>.</p>
+<p><del>Check out the end result running on my Raspberry Pi</del>.</p>
 
-<p>I won't go into installing Node.js as it's pretty straight-forward from their site. You will need to install a few extra packages, but that's easy enough:
+<p>I won't go into installing Node.js as it's pretty straight-forward from their site. You will need to install a few extra packages, but that's easy enough:</p>
 
-```
-  npm install express socket.io twit
-```
+<code>
+npm install express socket.io twit
+</code>
 
 <p>The application code is shown below, but also <a href="https://github.com/Cale/TweetNode">hosted on Github</a> for easy download. We'll start with the server (server.js) where the Twitter stream is consumed and processed. In this version I'm using the <a href="https://dev.twitter.com/docs/streaming-apis/streams/public">Twitter Firehose</a> and limiting the Tweets that come back based on a keyword. In this case, any Tweet that contains the word 'Nashville' will be displayed in the browser.</p>
 
-``` javascript server.js
+<pre>
+javascript server.js
 var express = require('express')
   , app = express()
   , http = require('http')
@@ -71,7 +74,7 @@ io.sockets.on('connection', function (socket) {
     // Makes a link the Tweet clickable
     var turl = tweet.text.match( /(http|https|ftp):\/\/[^\s]*/i )
     if ( turl != null ) {
-      turl = tweet.text.replace( turl[0], '<a href="'+turl[0]+'" target="new">'+turl[0]+'</a>' );
+      turl = tweet.text.replace( turl[0], '&lt;a href="'+turl[0]+'" target="new"&gt;'+turl[0]+'&lt;/a&gt;' );
     } else {
       turl = tweet.text;
     }
@@ -89,45 +92,49 @@ io.sockets.on('connection', function (socket) {
   });
 });
 
-```
+</pre>
 
 <p>The HTML file is static except for a small piece of JQuery that fades the old Tweet out and fades the new Tweet in. If a Tweet has a photo attached to it, the photo is added as a background image (node-twitter-stream.html).</p>
 
-``` html node-twitter-stream.html
-<!DOCTYPE html>
-  <head>
-    <title>TwitterNode</title>
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <link href='http://fonts.googleapis.com/css?family=Vollkorn' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="/node-twitter-stream.css">
-    <script src="/socket.io/socket.io.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.js"></script>
-    <script>
+<pre>
+html node-twitter-stream.html
+
+&lt;!DOCTYPE html&gt;
+  &lt;head&gt;
+    &lt;title&gt;TwitterNode&lt;/title&gt;
+    &lt;meta name="apple-mobile-web-app-capable" content="yes"&gt;
+    &lt;meta name="apple-mobile-web-app-status-bar-style" content="black"&gt;
+    &lt;link href='http://fonts.googleapis.com/css?family=Vollkorn' rel='stylesheet' type='text/css'&gt;
+    &lt;link rel="stylesheet" href="/node-twitter-stream.css"&gt;
+    &lt;script src="/socket.io/socket.io.js"&gt;&lt;/script&gt;
+    &lt;script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.js">&lt;/script&gt;
+    &lt;script&gt;
       var socket = io.connect('http://localhost:4040');
       socket.on('stream', function(tweet, user, avatar, media) {
         $( "#tweetd" ).fadeOut( function(){
           $( "#bg-image" ).css( "background-image","");
           $( "#tweetd" ).empty();
-          $('#tweetd').prepend('<div class="image"></div><div><img src="'+avatar+'" width="48" height="48"><a href="http://twitter.com/'+user+'" target="_blank">@'+user+'</a> '+tweet+'</div>');
+          $('#tweetd').prepend('&lt;div class="image"&gt;&lt;/div&gt;&lt;div&gt;&lt;img src="'+avatar+'" width="48" height="48"&gt;&lt;a href="http://twitter.com/'+user+'" target="_blank"&gt;@'+user+'&lt;/a&gt; '+tweet+'&lt;/div&gt;');
           if ( media ) {
             $( "#bg-image" ).css( "background-image","url("+media+")");
           }
           $( "#tweetd" ).fadeIn();
         })
       });
-    </script>
-  </head>
-  <body>
-    <div id="tweetd">Waiting for Tweets...</div>
-    <div id="bg-image"></div>
-  </body>
-</html>
-```
+    &lt;/script&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;div id="tweetd">Waiting for Tweets...&lt;/div&gt;
+    &lt;div id="bg-image"&gt;&lt;/div&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</pre>
 
 <p>Here is the CSS (node-twitter-stream.css) that styles the application. There's a small media query used here for better display on smartphones.</p>
 
-``` css node-twitter-stream.css
+<pre>
+css node-twitter-stream.css
+
 body {
   background-color:#000;
   color:#ddd;
@@ -174,20 +181,20 @@ div {
   /* Style adjustments for viewports 520px and lower */
   body { font-size:6em; }
 }
-```
+</pre>
 
 <p>With Node installed locally, you can now run this app and take a look in your browser.</p>
 
-``` bash Running the application
-  node server.js
-```
+<code>
+node server.js
+</code>
 
 <p>I wanted to access the app from anywhere and running from a <a href="http://www.raspberrypi.org/">Raspberry Pi</a> over the internet seemed like a good option. There's <a href="http://blog.rueedlinger.ch/2013/03/raspberry-pi-and-nodejs-basic-setup/">a great write-up on Matt's Blog</a> that explains how to get Node running as a service. In other words, your Node app can run behind the scenes even after rebooting your Raspberry Pi.</p>
 
 <p>That's it! You can now access your Node app from anywhere on any internet connected device. One item to watch out for, however, is the IP address you specify in the HTML file.</p>
 
-``` javascript Mind your IP address
+<code>
 var socket = io.connect('http://localhost:4040');
-```
+</code>
 
 <p>For internet users, you'll need to specify your external IP address. For clients on your local network, the Pi's local IP address will be required. I ended up using a URL variable that would determine which IP address to use.</p>

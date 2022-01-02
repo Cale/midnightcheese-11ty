@@ -2,9 +2,8 @@
 layout: post
 title: "Super Simple APRS Position Reporter"
 date: 2015-12-13 14:25:00
-comments: true
-cdn: 'header-off'
-header-img: 'http://assets.midnightcheese.com/images/aprs-position-track.jpg'
+excerpt: This project idea has been in response to the more hardware heavy Raspberry Pi projects that involve extra TNC hardware, additional sound cards, and custom cabling.
+image: http://assets.midnightcheese.com/images/aprs-position-track.jpg
 tags:
 - post
 - Amateur Radio
@@ -26,11 +25,11 @@ tags:
 
 <p>In this project I'm using a Raspberry Pi B+, USB GPS receiver, Baofeng UV-5R, and a mono 3.5mm audio cable between the Pi and HT.</p>
 
-<p><a href="http://assets.midnightcheese.com/images/raspberry-pi.jpg"><img src="http://assets.midnightcheese.com/images/raspberry-pi.jpg" width="450" alt="Raspberry Pi B+"/></a></p>
+<p><a href="http://assets.midnightcheese.com/images/raspberry-pi.jpg"><img src="http://assets.midnightcheese.com/images/raspberry-pi.jpg" alt="Raspberry Pi B+"/></a></p>
 
 <p>Through the Pi's audio output an APRS message is sent to the VOX enabled HT.</p>
 
-<p><a href="http://assets.midnightcheese.com/images/baofeng-uv-5r.jpg"><img src="http://assets.midnightcheese.com/images/baofeng-uv-5r.jpg" width="450" alt="Baofeng UV-5R"/></a></p>
+<p><a href="http://assets.midnightcheese.com/images/baofeng-uv-5r.jpg"><img src="http://assets.midnightcheese.com/images/baofeng-uv-5r.jpg" alt="Baofeng UV-5R"/></a></p>
 
 <p>The magic happens in the software. A <a href="https://github.com/casebeer/afsk">Python based modem library</a> and a relatively simple <a href="https://gist.github.com/Cale/699979c3f597378dfaca">PHP script</a> are the main components driving the project.</p>
 
@@ -40,32 +39,34 @@ tags:
 
 <p>A simple USB GPS receiver will do just fine for this project. I'm using an old <a href="http://www.amazon.com/DeLorme-Earthmate-U-S-A-DVD-ROM-Windows/dp/B000PIJT3Q">Earthmate LT-20</a>. In order for the Pi to read the GPS data we'll install <a href="http://www.catb.org/gpsd/">gpsd</a>.</p>
 
-```
+<code>
 sudo apt-get install gpsd gpsd-clients
-```
+</code>
 
-<p><a href="http://assets.midnightcheese.com/images/earthmate-lt-20-gps.jpg"><img src="http://assets.midnightcheese.com/images/earthmate-lt-20-gps.jpg" width="450" alt="Earthmate LT-20 USB GPS"/></a></p>
+<p><a href="http://assets.midnightcheese.com/images/earthmate-lt-20-gps.jpg"><img src="http://assets.midnightcheese.com/images/earthmate-lt-20-gps.jpg" alt="Earthmate LT-20 USB GPS"/></a></p>
 
 <p><strong>Setting up the local web server</strong></p>
 
 <p>The main PHP script will read the gpsd information through a JSON file. We'll need to install apache and PHP to serve the JSON file locally.</p>
 
-```
+<code>
 sudo apt-get install apache2 -y
-```
+</code>
 
-```
+<code>
 sudo apt-get install php5 libapache2-mod-php5 -y
-```
+</code>
 
 <p><a href="http://git.savannah.gnu.org/cgit/gpsd.git/plain/gpsd.php.in">Drop this file from the gpsd project</a> into the web server directory, /var/www/html/ and name it gpsd.php</p>
 
 <p>Execute gpsd.php from the command line to build a needed configuration file.</p>
 
-```
+<code>
 cd /var/www/html
+</code>
+<code>
 sudo php gpsd.php
-```
+</code>
 
 <p>If you open a web browser on your Pi and navigate to http://localhost/gpsd.php?op=json with your GPS connected and a clear shot of the sky, you should see position information appear. This is where the main PHP script will be reading the GPS data.</p>
 
@@ -73,10 +74,12 @@ sudo php gpsd.php
 
 <p>I mentioned earlier I'm not using a traditional APRS application to generate messages. Instead I'm using a simple Python library called <a href="https://github.com/casebeer/afsk">afsk modem</a>. Install this using pip.</p>
 
-```
+<code>
 sudo apt-get install python-pip python-dev
+</code>
+<code>
 sudo pip install afsk
-```
+</code>
 
 <p>The optional PyAudio libraries are not required.</p>
 
@@ -84,15 +87,15 @@ sudo pip install afsk
 
 <p>Make sure the Pi's sound output level is turned up. I set mine to 80.</p>
 
-```
+<code>
 alsamixer
-```
+</code>
 
 <p>And finally, be sure Raspi Config is set to play audio through the 3.5mm port, not HDMI.</p>
 
-```
+<code>
 sudo raspi-config
-```
+</code>
 
 <p><strong>The main script</strong></p>
 
@@ -100,9 +103,9 @@ sudo raspi-config
 
 <p>Running this file from the command line will show you what's happening.</p>
 
-```
+<code>
 php aprs-position-beacon.php
-```
+</code>
 
 <p>Reading in the GPS data, the script converts that to an APRS message string, runs the message through the modem library, outputs a WAV file and then plays the audio file through the Pi's onboard sound card. That triggers the VOX enabled UV-5R and you're now transmitting your position via APRS over RF.</p>
 
@@ -112,11 +115,11 @@ php aprs-position-beacon.php
 
 <p>My Raspberry Pi lives in my car and I've attached a mag mount antenna to the Baofeng for better reception.</p>
 
-<p><a href="http://assets.midnightcheese.com/images/diamond-mag-mount-antenna.jpg"><img src="http://assets.midnightcheese.com/images/diamond-mag-mount-antenna.jpg" width="450" alt="Diamond mag mount"/></a></p>
+<p><a href="http://assets.midnightcheese.com/images/diamond-mag-mount-antenna.jpg"><img src="http://assets.midnightcheese.com/images/diamond-mag-mount-antenna.jpg" alt="Diamond mag mount"/></a></p>
 
 <p>Here are typical results over 7 days of commuting.</p>
 
-<p><a href="http://assets.midnightcheese.com/images/aprs-position-track.jpg"><img src="http://assets.midnightcheese.com/images/aprs-position-track.jpg" width="450" alt="APRS position track"/></a></p>
+<p><a href="http://assets.midnightcheese.com/images/aprs-position-track.jpg"><img src="http://assets.midnightcheese.com/images/aprs-position-track.jpg" alt="APRS position track"/></a></p>
 
 <p>In the future I'd love to figure out a way to power the Baofeng from the car. Currently I have to take the HT in the house to charge every few days. I also have to turn it on and off each trip to and from the car.</p>
 
