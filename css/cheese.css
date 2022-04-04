@@ -217,6 +217,19 @@ footer a:hover {
   grid-column: 1 / -1;
 }
 
+table {
+    border-collapse: collapse;
+}
+
+td {
+  border: 1px solid #ddd;
+  padding: .75rem;
+}
+
+table span {
+  background-color: yellow;
+}
+
 @keyframes nav {
   from {
     color: #def4fc;
