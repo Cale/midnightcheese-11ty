@@ -1,10 +1,7 @@
 ---
-layout: post
 title: Broadcast iTunes AirPlay Tracks to Campfire Chat with TrackFire
-status: publish
-type: post
-comments: true
-published: true
+date: 2011-06-09
+excerpt: Using AppleScript to display iTunes AirPlay tracks in a Campfire chat.
 tags:
 - post
 - iTunes
@@ -32,7 +29,7 @@ tags:
 	<li> Use iTunes as you normally would and the script does the rest.</li>
 </ol>
 
-<pre><code lang="applescript">
+<pre>
 (* Begin user defined settings ************)
 
 property campfire_token : "1234567" (* Your Campfire API authentication token *)
@@ -96,4 +93,4 @@ on mungeText(itxt, stxt, rtxt)
 	set AppleScript's text item delimiters to tid
 	return otxt
 end mungeText
-</code></pre>
+</pre>

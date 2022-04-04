@@ -1,8 +1,8 @@
 ---
-layout: post
 title: "Switching From WordPress to Octopress"
 date: 2011-11-03 10:37:00
-comments: true
+excerpt: Documenting the move from WordPress to Octopress and static site generation.
+image: http://assets.midnightcheese.com/images/midnightcheese-2002.png
 tags:
 - post
 - Blogging
@@ -19,19 +19,19 @@ tags:
 
 <p>Octopress is the fourth blogging CMS that the site has operated under. <a href="http://en.wikipedia.org/wiki/Blogger_(service)">Blogger</a> started everything off very early on, followed by <a href="http://en.wikipedia.org/wiki/Greymatter_(software)">Greymatter</a> (also based on static files) in 2001, WordPress in 2004, and now Octopress.</p>
 
-<p><img src="http://assets.midnightcheese.com/images/midnightcheese-2002.png" alt="Midnight Cheese in 2002" border="0"><br /><small>Midnight Cheese in 2002</small></p>
+<p><img src="http://assets.midnightcheese.com/images/midnightcheese-2002.png" alt="Midnight Cheese in 2002" border="0"></p><p><small>Midnight Cheese in 2002</small></p>
 
 <p><strong>Issues with Disqus</strong><br />The WordPress import instructions on the Octopress site worked well. The most time consuming part for me was getting <a href="http://disqus.com/">Disqus</a> properly set up. It turns out you have to enable comments on each post.</p>
 
-<pre><code>
+<code>
   comments: true
-</code></pre>
+</code>
 
 <p>This meant a lot of text manipulation across some 470 posts. I used a little perl action to run through the _posts folder and change what was needed in each file. Basically a find and replace action.</p>
 
-<pre><code>
+<code>
   perl -pi -e 's/type: post/type: post\ncomments: true/g' *.html
-</code></pre>
+</code>
 
 <p>In addition, to get the comment count to appear on the main index view, I had to implement <a href="http://www.benjiegillam.com/2011/09/octopress-slash-disqus-issue-resolved/">this Disqus fix from Benjie Gillam</a>.</p>
 

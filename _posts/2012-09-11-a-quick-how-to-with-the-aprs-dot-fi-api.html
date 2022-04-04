@@ -1,9 +1,10 @@
 ---
-layout: post
-title: "A quick how-to with the aprs.fi API"
+title: A quick how-to with the aprs.fi API
 date: 2012-09-11 15:49:00
-comments: true
-tag:
+excerpt: Pulling data from the aprs.fi API.
+image: http://assets.midnightcheese.com/images/aprs.fi-large.png
+tags:
+- post
 - Amateur Radio
 - APRS
 - API
@@ -18,7 +19,6 @@ tag:
 <p>In the example below I've written a small PHP script that demonstrates how to pull data from the API and display that data in your terminal window.</p>
 
 <pre>
-<code lang="php">
 &lt;?php
 
 ini_set( "user_agent", "Midnight Cheese (+http://midnightcheese.com/)" );
@@ -42,7 +42,6 @@ function display_APRS() {
 display_APRS();
 
 ?>
-</code>
 </pre>
 
 <p>In this case we're requesting a list of weather information posted by a handful of different operators. The API returns the data in JSON which is then parsed and displayed. The final output is displayed below.</p>
@@ -56,4 +55,4 @@ Temperature is 78.08°F at AG4FW
 Temperature is 82.94°F at WR1Q
 </pre>
 
-<p><a href="http://assets.midnightcheese.com/images/aprs.fi-large.png"><img src="http://assets.midnightcheese.com/images/aprs.fi.jpg" alt="Objects on the aprs.fi map."></a><br><small>Lots of APRS objects displayed on the <a href="http://aprs.fi/">aprs.fi</a> map.</small></p>
+<p><a href="http://assets.midnightcheese.com/images/aprs.fi-large.png"><img src="http://assets.midnightcheese.com/images/aprs.fi-large.png" alt="Objects on the aprs.fi map."></a></p><p><small>Lots of APRS objects displayed on the <a href="http://aprs.fi/">aprs.fi</a> map.</small></p>

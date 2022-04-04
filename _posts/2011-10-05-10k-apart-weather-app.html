@@ -1,31 +1,30 @@
 ---
-layout: post
 title: 10K Apart Weather App
-status: publish
-type: post
-comments: true
-published: true
+date: 2011-10-05
+excerpt: A location based weather app designed for 10K Apart.
+image: http://assets.midnightcheese.com/images/10KWX-Day.png
 tags:
 - post
 - Web Design
 - Weather
+- API
 ---
 
 <h1 class="full-bleed">{{ title }}</h1><p class="date">{{ date | date: "%B %d, %Y"}}</p>
 
 <p><a href="http://www.midnightcheese.com/wx/">10KWX</a> is a responsive weather app that I submitted to this year's <a href="http://10k.aneventapart.com/">10K Apart</a> exercise.</p>
 
-<p><a href="http://assets.midnightcheese.com/images/10KWX-Day.png" rel="lightbox"><img src="http://assets.midnightcheese.com/images/10KWX-Day.jpg" border="0" alt="10KWX weather app during the day" /></a></p>
+<p><a href="http://assets.midnightcheese.com/images/10KWX-Day.png"><img src="http://assets.midnightcheese.com/images/10KWX-Day.png" border="0" alt="10KWX weather app during the day" /></a></p>
 
 <p>The app uses a web browser's <a href="http://dev.w3.org/geo/api/spec-source.html">geo location feature</a> to grab the user's location and then pass that info off to <a href="http://developer.yahoo.com/weather/">Yahoo!'s weather API</a> for current conditions and forecast.</p>
 
-<p><a href="http://assets.midnightcheese.com/images/10KWX-Mobile.png" rel="lightbox"><img src="http://assets.midnightcheese.com/images/10KWX-Mobile.jpg" border="0" class="blogImage" alt="10KWX Mobile screen shots" /></a><small>The application is responsive!</small></p>
+<p><a href="http://assets.midnightcheese.com/images/10KWX-Mobile.png"><img src="http://assets.midnightcheese.com/images/10KWX-Mobile.png" border="0" alt="10KWX Mobile screen shots" /></a></p><p><small>The application is responsive!</small></p>
 
 <p>To fit within the 10K file size limit, use of images was out of the question. But, what's a weather forecast without a nice graphical indicator of the weather? Using the HTML5 canvas element and CSS3 animation I was able to render the graphics and the subtle animation of each weather illustration. (Be sure to check in during a thunderstorm.)</p>
 
 <p>Having done quite a bit of animation in Flash and After Effects, CSS3 animation techniques are actually a welcomed way of doing things. I love being able to specify keyframes as percentage points.</p>
 
-<pre><code lang="css">
+<pre>
 @-moz-keyframes rain1 {
   0% {
     margin-top: 0px;
@@ -48,11 +47,11 @@ tags:
     opacity: 0;
   }
 }
-</code></pre>
+</pre>
 
 <p>One bug(?) I found with CSS3 animation was not being able to span values across multiple percentage breaks. For example, looking at the animation above, I originally didn't have the top and left margin values written out on the 20% and 80% marks, just the 0% and 100% marks. But, this caused some funky animation to occur, especially on the iOS version of Webkit. Adding top and left margin to the 20% and 80% points solved this problem. The only downside: It requires calculating those margin values at that specific percentage point.</p>
 
-<p><a href="http://assets.midnightcheese.com/images/10KWX-Night.png" rel="lightbox"><img src="http://assets.midnightcheese.com/images/10KWX-Night.jpg" border="0" class="blogImage" alt="10KWX weather app at night" /></a></p>
+<p><a href="http://assets.midnightcheese.com/images/10KWX-Night.png" rel="lightbox"><img src="http://assets.midnightcheese.com/images/10KWX-Night.png" border="0" alt="10KWX weather app at night" /></a></p>
 
 <p>This project was a lot of fun. Surprisingly time consuming, but that happened to be a good thing.</p>
 
