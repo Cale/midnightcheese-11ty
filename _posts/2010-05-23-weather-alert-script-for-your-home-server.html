@@ -1,13 +1,10 @@
 ---
-layout: post
 title: Weather Alert Script for your Home Server
+date: 2010-05-23
+excerpt: Using the beep command to signal weather alerts.
 tags:
 - post
 - Weather
-status: publish
-type: post
-comments: true
-published: true
 ---
 
 <h1 class="full-bleed">{{ title }}</h1><p class="date">{{ date | date: "%B %d, %Y"}}</p>
@@ -18,21 +15,21 @@ published: true
 
 <p>If a watch is active, the server uses beep to send out a specific sound.</p>
 
-<pre><code lang="bash">
+<pre>
 beep -f 75 -l 3000
-</code></pre>
+</pre>
 
 <p>If a warning is active, beep outputs a different sound.</p>
 
-<pre><code lang="bash">
+<pre>
 beep -f 900 -l 1500 -r 4
-</code></pre>
+</pre>
 
 <p>As it happens, our server is just off the kitchen, so we can hear the beeping from the main part of the house.</p>
 
 <p>Here is the code:</p>
 
-<pre><code lang="php">
+<pre>
 < ?php
 function pullWXAlerts() {
   $zipCode = 37086; // Your Zip Code
@@ -83,13 +80,13 @@ _ORDER_;
 
 pullWXAlerts();
 
-?></code></pre>
+?></pre>
 
 <p>Above is the script that looks for watches every ten minutes. If watches exist, a second script is copied over to to the cron folder and is run every minute. I've added the functionality to also email myself if an alert exists.</p>
 
 <p>This is the script that runs every minute if a weather alert is active:</p>
 
-<pre><code lang="php">
+<pre>
 < ?php
 function pullWXAlerts() {
 
@@ -131,7 +128,7 @@ _ORDER_;
 }
 pullWXAlerts();
 ?>
-</code></pre>
+</pre>
 
 <p>Once again we're getting an alert count. If an alert exists and it's either a thunderstorm warning or a tornado warning, beep takes over and starts sounding the alarm.</p>
 
@@ -139,10 +136,10 @@ pullWXAlerts();
 
 <p>Once cron is set up, you can call these files from a bash script like so:</p>
 
-<pre><code lang="bash">
+<pre>
 #!/bin/bash
 
 php /home/user/wx-alerts/pull-wx-alerts.php
-</code></pre>
+</pre>
 
 <p><strong>A word of caution:</strong> While this system may work well for some, it's likely not ideal for everyone. Some system beeps are very quiet. You're also relying on computers to get the alert out. Not to mention your internet connection and power company. Personally, I'll still be investing in a real weather radio, but this can act as a decent failsafe.</p>
