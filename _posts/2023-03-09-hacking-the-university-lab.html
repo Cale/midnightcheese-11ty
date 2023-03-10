@@ -1,0 +1,46 @@
+---
+title: Hacking the University Mac Lab
+date: 2023-03-09
+excerpt: A short story about hacking the library Macintosh lab at the University of Tennessee.
+image: https://assets.midnightcheese.com/images/powermac-g4-quicksilver-computer.jpg
+tags:
+- post
+- Apple
+- UT
+---
+
+<h1 class="full-bleed">{{ title }}</h1><p class="date">{{ date | date: "%B %d, %Y"}}</p>
+
+<p>Everything is a hack, from the rendering engine displaying this text to the <a href="https://www.sunburstandluminary.com/">onboard software that ran on Apollo</a>. It's all expertly crafted, but the fundamental nature of computers force the potential for bugs and critical errors. No software is full-proof.</p>
+
+<p>This is a short story about hacking the University of Tennessee library computer labs around the year 2000. It's not a sinister, bring the network to its knees type hack. Nothing was broken. This hack involved font files, an FTP client, and a lab of Macintosh computers running <a href="https://en.wikipedia.org/wiki/Mac_OS_9">OS 9</a> that were tightly locked down to prevent users from accessing system level settings and files.</p>
+
+<p>At UT I was a graphic design major which meant I was producing lots of graphic design projects using apps like Adobe Photoshop, Adobe Illustrator, and Quark Express. Like most design schools at the time, UT was a Mac shop. The design program had its own small lab of about a dozen Macintosh computers, a large format printer, and an HP Scanjet 4c<sup>1</sup>. I was also fortunate to have my own Mac which I purchased by saving from the part time jobs I had in high school. It was a 233MHz beige G3 tower. A beast of a machine at the time!</p>
+
+<p>Working on various graphic design projects meant hours in front of the computer getting every detail just right. Cutting out images in Photoshop, creating logos and vector art in Illustrator, and pouring over typographic details in Quark were the standard tasks. Unfortunately, lab space was hard to come by. The design lab was almost always full. It also had weird hours, open late to all hours one day, and closed the next. Weekends were equally unpredictable. I had my own Mac in my dorm room, but living in The Zoo<sup>2</sup>, it was constant chaos and distraction. Not a place to concentrate on work.</p>
+
+<p>With access to quality workstations lacking, it often meant packing up the Zip Disks we used to haul our work around, and seeking out other labs on campus. However, quality Mac labs were few and far between. Most of the dorms had Mac labs, but the machines were terribly dated and didn't have the Adobe suite of apps installed. The only other viable option was the Mac lab at <a href="https://www.lib.utk.edu/">Hodges Library</a>. This was the main library which meant a huge computer lab with both  Mac and PC workstations. This lab was also almost always open except for maybe Sunday mornings. The machines were new, and they had just about every relevant piece of software installed, including the Adobe suite of apps. However, there was one major problem. The Macs in Hodges were locked down with software that limited user access.</p>
+
+<p>Specifically, access to the <a href="https://en.wikipedia.org/wiki/System_folder">System Folder</a> which housed the Fonts folder, was unavailable. This was problematic because most design projects were using fonts beyond the system defaults. That meant we had to install any custom fonts onto the machine we were working on and that was done by dragging font files from our Zip Disks into the System Fonts folder. (In addition to the design files on our Zip Disks, there was always a large Fonts folder full of hundreds of fonts that design students would pass along to one another. Adobe's network-enabled font offering was still years away.) Without the ability to access the Fonts folder and install fonts, it would be impossible to work on a project with any typographic component.</p>
+
+<p>As a result, I'd carefully plan out which projects should be worked on at any given lab. If I had a ton of image manipulation to do, I could jump over to Hodges with no problem. If I had a lot of typographic work in a project, I'd have to do that in the design lab or on my computer. Dealing with the locked down Macs in Hodges was a hassle. Most of the other Macs on campus were completely wide open. No restrictions. This was a time before every student had some form of single sign-on account that was required to gain access to any machine on campus and beyond. In the late 90s and early 2000s, anyone could walk into just about any lab, sit down, and have completely open access to any machine and the university network at large. The school had virtually no concept of who was using what in a public lab.</p>
+
+<p>Of course, that meant I could poke around those locked down machines in the Hodges lab with little concern or trace and try to find a way around the protections that were locking down the Fonts folder. I needed the freedom to do my design work where I please, with whichever fonts I please!</p>
+
+<p>I don't remember the details around how I came to the eventual solution, but the hack ended up utilizing FTP server and client software. I spun up an FTP server on the Mac, probably using an app like <a href="https://www.macintoshrepository.org/28812-white-pine-s-ftpshare-v3-1-4">FTPShare</a><sup>3</sup>, then, on the same machine,  used <a href="https://fetchsoftworks.com/">Fetch</a><sup>4</sup> to connect to the FTP server. At that point, I had "root" access to the entire file system on the Mac, bypassing the software in place that removed access to the Fonts folder through <a href="https://en.wikipedia.org/wiki/Finder_(software)">Finder</a>. I could simply drag and drop the fonts from my Zip Disk into Fetch, and Fetch "uploaded" the fonts to the Fonts folder. Problem solved! I could work on any project I wanted using any font I wanted in any lab I wanted.</p>
+
+<p>While this wasn't a complex hack, it illustrates the limited nature of software and inability to cover all use cases. The software locking down the lab computers solved the problem for 99.9% of use cases. Users couldn't get into system folders through the Finder. It didn't take into account accessing the file system outside of Finder.</p>
+
+<p><sup>1</sup> I don't know why I remember this scanner in such detail, but at the time it was INCREDIBLE to be able to scan images into Photoshop at 600 DPI. It was a real game-changer for design projects, taking visual exploration to new heights. This video is a long, but very <a href="https://www.youtube.com/watch?v=HA4rRJMZKkE">satisfying overview of the Scanjet 4c</a>.</p>
+
+<p><sup>2</sup> At the time, Hess Hall at the University of Tennessee was nick-named <em>The Zoo</em> because it was constant chaos. This was likely a result of no air conditioning which required the windows to be open 24/7 and every sound coming from that building somehow amplified itself across campus. It was also the largest dorm on campus featuring two wings and a courtyard surrounded by the U shape of the building. (I've seen things in that building that I will never unsee.)</p>
+
+<p><sup>3</sup> Mac OS 9 had a built-in FTP server that could be enabled, but the software restricting user access also removed access to network settings.</p>
+
+<p><sup>4</sup> Before <a href="https://panic.com/">Panic</a>'s <a href="https://panic.com/transmit/">Transmit</a>, <a href="https://fetchsoftworks.com/">Fetch</a> was <em>the</em> FTP program for the Mac. It's what you would expect from a piece of Mac software. Simple, easy, and a joy to use.</p>
+
+<img src="https://assets.midnightcheese.com/images/powermac-g4-quicksilver-computer.jpg" class="full-bleed" alt="The Hodges Library computer lab featuring a PowerMac G4 Quicksilver." title="PowerMac G4 Quicksilver at the University of Tennesse, year 2000.">
+
+<p>This is it! The University of Tennessee Hodges Library Mac computer lab featuring a PowerMac G4 Quicksilver tower running Mac OS 9! Photo taken January 28th, 2000 around 10:30 PM.</p>
+
+<p>Look at the terrible wooden chair in the background. That's what we sat on for hours on end. <em>And we liked it!</em></p>
