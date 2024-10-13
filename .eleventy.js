@@ -5,6 +5,7 @@ const pluginSEO = require("eleventy-plugin-seo");
 module.exports = function(eleventyConfig) {
   eleventyConfig.addPlugin(pluginRss);
   eleventyConfig.addPassthroughCopy('css');
+  eleventyConfig.addPassthroughCopy('ads.txt');
   eleventyConfig.setFrontMatterParsingOptions({
     excerpt: true
   });
