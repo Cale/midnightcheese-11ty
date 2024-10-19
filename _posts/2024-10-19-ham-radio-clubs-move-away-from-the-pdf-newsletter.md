@@ -2,7 +2,7 @@
 title: "Ham Radio Clubs: It's time to move away from the PDF Newsletter"
 date: 2024-10-19
 excerpt: Helping amateur radio clubs and organizations get their content in front of more hams.
-image: https://hamweekly.com/images/amateur-radio-weekly.png
+image: https://assets.midnightcheese.com/images/google-search-for-aredn-on-vancouver-island.png
 tags:
 - post
 - Amateur Radio
