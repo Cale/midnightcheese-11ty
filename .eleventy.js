@@ -42,6 +42,14 @@ module.exports = function(eleventyConfig) {
     return [...tagSet];
   });
 
+  eleventyConfig.addCollection('wiki', function(collectionApi) {
+    return collectionApi.getFilteredByGlob('wiki/*.*');
+  });
+
+  eleventyConfig.addCollection('microblog', function(collectionApi) {
+    return collectionApi.getFilteredByGlob('micro-blog/*.*');
+  });
+
   return {
     passthroughFileCopy: true,
     dir: {

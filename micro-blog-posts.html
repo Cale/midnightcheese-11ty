@@ -1,0 +1,15 @@
+---
+layout: post-without-comments.njk
+title: Micro Blog | Midnight Cheese
+excerpt: 
+permalink: /micro-blog/
+---
+{% for entry in collections.microblog | reverse %}
+    <article>
+        {{ entry.content }}
+        <time datetime="{{ entry.date.toISOString }}">
+            <a href="{{ entry.url | url }}">{{ entry.date }}</a>
+            {% for tag in entry.data.tags %}#{{ tag }} {% endfor %}
+        </time>
+    </article>
+{% endfor %}
