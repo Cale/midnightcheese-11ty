@@ -185,6 +185,15 @@ time, .tag {
   font-size: .85rem;
 }
 
+.defunct {
+  background-color: #FFF581;
+  border-radius: .3rem;
+  font-size: .7rem;
+  font-weight: 900;
+  padding: .25rem;
+  text-transform: uppercase;
+}
+
 footer {
   background-color: #20c3f9;
   padding: 1rem 0 1rem 0;
