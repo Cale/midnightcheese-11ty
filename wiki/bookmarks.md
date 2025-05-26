@@ -111,50 +111,50 @@ Last updated May 25th, 2025
 
 - [Don Draper Wink](http://media.giphy.com/media/w9oFu4jgrTFYs/giphy.gif)
 - [Son, I am proud](http://1.bp.blogspot.com/_WzB6wEb5o-Y/TQfdmvnpjII/AAAAAAAAAKU/arrhK2i9Cmw/s400/son-i-am-proud.jpg#.png)
-- [Spock Win](http://www.reoiv.com/images/random/SpockWin.jpg)
+- [Spock Win](http://www.reoiv.com/images/random/SpockWin.jpg) <span class="defunct">Defunct</span>
 - [Herman](http://i0.kym-cdn.com/photos/images/original/000/196/518/132051571897.gif)
 - [2 finger push-up](http://28.media.tumblr.com/tumblr_ly12zdQukf1qcfba3o1_500.gif)
 - [fellowshipoftheclaps.gif (448×201)](http://bukk.it/fellowshipoftheclaps.gif)
-- [Tinactin Boom](http://gifsoup.com/webroot/animatedgifs3/1233569_o.gif)
-- [George Clapping](http://assets0.ordienetworks.com/images/GifGuide/clapping/seinfeld.gif)
+- [Tinactin Boom](http://gifsoup.com/webroot/animatedgifs3/1233569_o.gif) <span class="defunct">Defunct</span>
+- [George Clapping](http://assets0.ordienetworks.com/images/GifGuide/clapping/seinfeld.gif) <span class="defunct">Defunct</span>
 - [You're Awesome](http://24.media.tumblr.com/tumblr_lwcstrXVoU1qc3759o1_500.gif)
-- [The More You Know](http://gifsoup.com/webroot/animatedgifs/204031_o.gif)
-- [Gates Ballmer](https://lh6.googleusercontent.com/-IXSX0sbqCBE/T_ITQrgxwwI/AAAAAAAAC7s/gztvwCl1gio/ballmerngates.gif)
+- [The More You Know](http://gifsoup.com/webroot/animatedgifs/204031_o.gif) <span class="defunct">Defunct</span>
+- [Gates Ballmer](https://lh6.googleusercontent.com/-IXSX0sbqCBE/T_ITQrgxwwI/AAAAAAAAC7s/gztvwCl1gio/ballmerngates.gif) <span class="defunct">Defunct</span>
 - [Yes Napo Dynamite](http://media.tumblr.com/tumblr_mczl8enfx41rumq9a.gif)
-- [Fuck yeah](http://mlkshk.com/r/L435#.gif)
+- [Fuck yeah](http://mlkshk.com/r/L435#.gif) <span class="defunct">Defunct</span>
 - [Chuck Norris Thumbs Up](http://cdn0.sbnation.com/imported_assets/1016769/3879_-_animated_gif_chuck_norris_dodgeball_thumbs_up.gif)
 - [Majestic as fuck](http://mlkshk.com/r/MGAN#.gif)
-- [Me Gusta](http://cdn.memegenerator.net/instances/250x250/30127438.jpg)
-- [Poppins clapping](http://mlkshk.com/r/NDU5#.gif)
-- [Karate kid](http://mlkshk.com/r/NE02#.gif)
-- [Brad Pit](http://img.gawkerassets.com/img/17pv96crbm4l3gif/medium.gif)
-- [Fat face](http://mlkshk.com/r/OSSK#.gif)
+- [Me Gusta](http://cdn.memegenerator.net/instances/250x250/30127438.jpg) <span class="defunct">Defunct</span>
+- [Poppins clapping](http://mlkshk.com/r/NDU5#.gif) <span class="defunct">Defunct</span>
+- [Karate kid](http://mlkshk.com/r/NE02#.gif) <span class="defunct">Defunct</span>
+- [Brad Pit](http://img.gawkerassets.com/img/17pv96crbm4l3gif/medium.gif) <span class="defunct">Defunct</span>
+- [Fat face](http://mlkshk.com/r/OSSK#.gif) <span class="defunct">Defunct</span>
 - [Out of Destruction](http://www.topito.com/wp-content/uploads/2013/01/code-13.gif)
-- [Nicholson yessssss](http://www.abload.de/img/animation1dfg2zq7ggauxz.gif)
-- [Magic](http://weknowgifs.com/wp-content/uploads/2013/03/its-magic-shia-labeouf-gif.gif)
+- [Nicholson yessssss](http://www.abload.de/img/animation1dfg2zq7ggauxz.gif) <span class="defunct">Defunct</span>
+- [Magic](http://weknowgifs.com/wp-content/uploads/2013/03/its-magic-shia-labeouf-gif.gif) <span class="defunct">Defunct</span>
 - [Despicable Guys](http://media.tumblr.com/tumblr_m5wb80a44i1rne4fx.gif)
-- [George Point](http://blackgifs.com/gifs/costanza.gif)
-- [Thumbs up](http://i1.wp.com/highheeledrunner.com/wp-content/uploads/2013/03/tumblr_m2xsy2nxYr1qc9lhz.gif)
-- [Jules point](http://lh6.ggpht.com/_gLfeaVZEwNo/Tbk_nGwEkhI/AAAAAAAAYQA/pjBI9l3OBWk/f2xOm_thumb%5B2%5D.gif)
+- [George Point](http://blackgifs.com/gifs/costanza.gif) <span class="defunct">Defunct</span>
+- [Thumbs up](http://i1.wp.com/highheeledrunner.com/wp-content/uploads/2013/03/tumblr_m2xsy2nxYr1qc9lhz.gif) <span class="defunct">Defunct</span>
+- [Jules point](http://lh6.ggpht.com/_gLfeaVZEwNo/Tbk_nGwEkhI/AAAAAAAAYQA/pjBI9l3OBWk/f2xOm_thumb%5B2%5D.gif) <span class="defunct">Defunct</span>
 - [Elf](http://media.tumblr.com/tumblr_m2af8vv1Sg1qflal8.gif)
-- [God Damn Right Breaking Bad](http://img.pandawhale.com/41581-Breaking-Bad-Youre-God-Damn-Ri-20Eu.gif)
+- [God Damn Right Breaking Bad](http://img.pandawhale.com/41581-Breaking-Bad-Youre-God-Damn-Ri-20Eu.gif) <span class="defunct">Defunct</span>
 - [Savage](http://bukk.it/savageup.gif)
 - [Yellow dudes](http://mlkshk.com/r/SEP9#.gif)
 - [Bill and Ted](http://images4.fanpop.com/image/photos/21200000/Bill-and-Ted-s-Excellent-Adventure-80s-films-21210088-500-274.gif)
 - [LOL Rage Face](http://media.tumblr.com/tumblr_lpmzi6wbrh1qcif3i.gif)
-- [Gatsby Toast](http://snarknbanter.files.wordpress.com/2013/05/gatsby-raise-you-glass.gif)
-- [Arnold Do it, do it now.](http://www.nclarts.org/wp-content/uploads/2013/07/arnold.jpg)
-- [Goal!](http://img.gawkerassets.com/img/192owjmi1mjqwgif/original.gif)
-- [Nod yes](http://mlkshk.com/r/V5RP)
+- [Gatsby Toast](http://snarknbanter.files.wordpress.com/2013/05/gatsby-raise-you-glass.gif) <span class="defunct">Defunct</span>
+- [Arnold Do it, do it now.](http://www.nclarts.org/wp-content/uploads/2013/07/arnold.jpg) <span class="defunct">Defunct</span>
+- [Goal!](http://img.gawkerassets.com/img/192owjmi1mjqwgif/original.gif) <span class="defunct">Defunct</span>
+- [Nod yes](http://mlkshk.com/r/V5RP) <span class="defunct">Defunct</span>
 - [Kramer thumbs up](http://pixel.nymag.com/content/dam/slideshows/2013/11/seinfeld-quiz-gifs/win.gif)
-- [Like it a lot](http://img.pandawhale.com/101379-Jim-Carrey-I-like-it-alot-gif-GflM.gif)
-- [-1](http://midnightcheese.com/gif/minus1.gif)
-- [Care o Meter](http://midnightcheese.com/gif/dont-care.gif)
-- [That's Bullshit](http://rumorsontheinternets.files.wordpress.com/2011/03/peggythatsbs.gif)
-- [Ace Ventura Plunger](http://img98.imageshack.us/img98/9961/plungerface.gif)
-- [Hell No](http://midnightcheese.com/gif/hell-no.gif)
+- [Like it a lot](http://img.pandawhale.com/101379-Jim-Carrey-I-like-it-alot-gif-GflM.gif) <span class="defunct">Defunct</span>
+- [-1](http://midnightcheese.com/gif/minus1.gif) <span class="defunct">Defunct</span>
+- [Care o Meter](http://midnightcheese.com/gif/dont-care.gif) <span class="defunct">Defunct</span>
+- [That's Bullshit](http://rumorsontheinternets.files.wordpress.com/2011/03/peggythatsbs.gif) <span class="defunct">Defunct</span>
+- [Ace Ventura Plunger](http://img98.imageshack.us/img98/9961/plungerface.gif) <span class="defunct">Defunct</span>
+- [Hell No](http://midnightcheese.com/gif/hell-no.gif) <span class="defunct">Defunct</span>
 - [Morgan Freeman Argument Invalid](http://25.media.tumblr.com/5VSYk6VE5kl18w4o1b2ssv5Xo1_400.jpg)
-- [looks-like-its-fuck-this-shit-o-clock.jpg (419×304)](http://weknowmemes.com/wp-content/uploads/2012/04/looks-like-its-fuck-this-shit-o-clock.jpg)
+- [looks-like-its-fuck-this-shit-o-clock.jpg (419×304)](http://weknowmemes.com/wp-content/uploads/2012/04/looks-like-its-fuck-this-shit-o-clock.jpg) <span class="defunct">Defunct</span>
 - [You get nothing](https://mlkshk.com/r/IL9Z#.gif)
 - [That should do it](http://mlkshk.com/r/LDWF#.gif)
 - [The Wire](http://i.imgur.com/fItDC.gif)
