@@ -8,6 +8,8 @@ tags:
 ---
 <h1 class="full-bleed">{{ title }}</h1><p class="date">{{ date | date: "%B %d, %Y"}}</p>
 
+*This post is a work in progress.*
+
 This project aims to accomplish two goals: Receiving and decoding automatic picture transmissions (APT) from weather satellites and achieve APRS QSOs via the International Space Station APRS digipeater. It's turning into a two-part project as the cost ended up being a bit more than anticipated. Part 1 will focus on receiving while part 2 will focus on a transmit option. 
 
 The "remote" portion of the project includes setting this station up in the little shed attached to our carport. Remote is in quotes because while the station won't be physically located in the house, it will still be accessed on the same home wireless network. One of the sub goals is to get a good understanding of remote access best practices. (Ubuntu is already proving difficult in a way that is compromising security.)
