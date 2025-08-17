@@ -8,21 +8,37 @@ tags:
 ---
 # Bands I've Seen
 
-Last updated May 26th, 2025
+Last updated August 17th, 2025
 
 ### 2025
+
 - **Nita Strauss** 2/2/25 Barrelhouse Ballroom
     - Lips Speak Louder
+- **Shot Through The heart** 3/29/25 Hop Springs
 - **Dorothy** 4/16/25 Brooklyn Bowl
 - **Metallica** 5/1/25 & 5/3/25 Nissan Stadium
     - Limp Bizkit 5/3/25
     - Ice Nine Kills 5/3/25
     - Pantera 5/1/25
     - Suicidal Tendencies 5/1/25
+- **C.F. Kip Winger: Violin Concerto: In the Language of Flowers** 5/2/25 Schermerhorn Symphony Center
+    - Nashville Symphony
 - **Pearl Jam** 5/6/25
    - Teen Jesus and the Jean Teasers
-- **AC DC** 5/21/25
+- **AC/DC** 5/21/25
     - The Pretty Reckless
+- **Faster Pussycat** 5/30/25 Count's Vamp'd
+    - Vain
+- **Faster Pussycat** 7/3/25 Open Chord
+    - Supersuckers
+    - Seven Year Sideshow
+- **Primus** 7/13/25 The Pinnacle
+    - Ty Segall
+- **Yeah Yeah Yeahs** 7/19/25 Ryman Auditorium
+    - Jack Lawrence
+- **Dirty Honey** 8/11/25 Brooklyn Bowl
+- **Rod Stewart** 8/14/25 Ascend Amphitheater
+    - Cheap Trick
 
 ### 2024
 
