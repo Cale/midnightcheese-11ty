@@ -39,6 +39,9 @@ Last updated August 17th, 2025
 - **Dirty Honey** 8/11/25 Brooklyn Bowl
 - **Rod Stewart** 8/14/25 Ascend Amphitheater
     - Cheap Trick
+- **Molly Tuttle** 8/19/25 Grimey's
+- **The Darkness** 8/31/25 Brooklyn Bowl
+    - Mark Daly
 
 ### 2024
 
