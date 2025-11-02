@@ -8,7 +8,7 @@ tags:
 ---
 # Bands I've Seen
 
-Last updated August 17th, 2025
+Last updated November 2nd, 2025
 
 ### 2025
 
@@ -42,6 +42,19 @@ Last updated August 17th, 2025
 - **Molly Tuttle** 8/19/25 Grimey's
 - **The Darkness** 8/31/25 Brooklyn Bowl
     - Mark Daly
+- **Nine Inch Nails** 9/6/25 Bridgestone Arena
+    - Boys Noize
+- **Motley Crue** 9/12/25 Dolby Live
+- **Motley Crue** 9/13/25 Dolby Live
+- **Modest Mouse** 10/9/25 The Pinnacle
+    - Built to Spill
+- **John Waite** 10/11/25 Franklin Theater
+- **Orianthi** 10/26/25 City Winery
+- **John 5** 10/28/25 Minglewood Hall
+    - Richie Kotzen
+    - Vern Daysel & The Burning Breeze
+- **John 5** 10/29/25 Fogg Street Lawn Club
+    - Richie Kotzen
 
 ### 2024
 
