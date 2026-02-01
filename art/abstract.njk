@@ -1,0 +1,12 @@
+--- 
+layout: post-without-comments.njk
+permalink: /art/abstract/
+title: 'Abstract Art'
+---
+<ul id="gallery">
+  {% for image in collections.abstract %}
+    <a class="item" href="{{ image.src }}" target="__blank">
+      <img src="{{ image.src }}" width="{{ image.width }}" height="{{ image.height }}" title="{{ image.name}}" alt="{{ image.name}}" />
+    </a>
+  {% endfor %}
+</ul>

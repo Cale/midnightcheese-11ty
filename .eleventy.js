@@ -1,6 +1,8 @@
 const pluginRss = require("@11ty/eleventy-plugin-rss");
 const { DateTime } = require("luxon");
 const pluginSEO = require("eleventy-plugin-seo");
+const fs = require("fs");
+const path = require("path");
 
 module.exports = function(eleventyConfig) {
   eleventyConfig.addPlugin(pluginRss);
@@ -48,6 +50,23 @@ module.exports = function(eleventyConfig) {
 
   eleventyConfig.addCollection('microblog', function(collectionApi) {
     return collectionApi.getFilteredByGlob('micro-blog/*.*');
+  });
+
+  eleventyConfig.addCollection("abstract", () => {
+    const files = []
+    const json = require('./art/abstract.json')
+
+    Array.prototype.forEach.call(json.files, image => {
+      files.push(image)
+    })
+
+    return files.map((file) => {
+      console.log(`🖼 Adding picture to gallery: ${file}`)
+      return {
+        name: file.split(".")[0], // Get image name without extension
+        src: `https://assets.midnightcheese.com/images/art/abstract/${file}`,
+      };  // Array<{name: "Image name", src: "/image.jpg"}>
+    });
   });
 
   return {
