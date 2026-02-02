@@ -1,8 +1,6 @@
 const pluginRss = require("@11ty/eleventy-plugin-rss");
 const { DateTime } = require("luxon");
 const pluginSEO = require("eleventy-plugin-seo");
-const fs = require("fs");
-const path = require("path");
 
 module.exports = function(eleventyConfig) {
   eleventyConfig.addPlugin(pluginRss);
@@ -46,6 +44,10 @@ module.exports = function(eleventyConfig) {
 
   eleventyConfig.addCollection('wiki', function(collectionApi) {
     return collectionApi.getFilteredByGlob('wiki/*.*');
+  });
+
+  eleventyConfig.addCollection('artprojects', function(collectionApi) {
+    return collectionApi.getFilteredByGlob('art/*.*');
   });
 
   eleventyConfig.addCollection('microblog', function(collectionApi) {

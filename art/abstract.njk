@@ -2,7 +2,11 @@
 layout: post-without-comments.njk
 permalink: /art/abstract/
 title: 'Abstract Art'
+tags:
+- artprojects
 ---
+<h1>{{ title }}</h1>
+<p>1998-2002</p>
 <ul id="gallery">
   {% for image in collections.abstract %}
     <a class="item" href="{{ image.src }}" target="__blank">

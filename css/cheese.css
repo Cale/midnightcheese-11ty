@@ -239,6 +239,28 @@ table span {
   background-color: yellow;
 }
 
+#gallery {
+  column-count: 2;
+  column-gap: .75rem;
+
+  .item {
+    display: block;
+    margin: 0 0 .75em;
+    width: 100%;
+    img{
+      margin: 0;
+    }
+  }
+
+  /* @media only screen and (max-width: 767px) and (min-width: 540px) {
+    column-count: 2;
+  }
+
+  @media only screen and (max-width: 600px) {
+    column-count: 1;
+  } */
+}
+
 @keyframes nav {
   from {
     color: #def4fc;
