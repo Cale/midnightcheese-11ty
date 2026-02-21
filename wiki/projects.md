@@ -1,7 +1,7 @@
 ---
 layout: post-without-comments.njk
 title: Projects
-excerpt: Notes from projects I'm worked on or created.
+excerpt: Notes from projects I've worked on or created.
 permalink: /wiki/projects/
 tags:
 - Projects

@@ -8,7 +8,11 @@ tags:
 ---
 # Bands I've Seen
 
-Last updated November 2nd, 2025
+Last updated February 20th, 2026
+
+### 2026
+
+- **Rascal Flatts** 2/5/26
 
 ### 2025
 
@@ -55,6 +59,14 @@ Last updated November 2nd, 2025
     - Vern Daysel & The Burning Breeze
 - **John 5** 10/29/25 Fogg Street Lawn Club
     - Richie Kotzen
+- **Them Dirty Roses** 11/1/25 Basement East
+- **John 5** 11/7/25 Iridium
+- **John 5** 11/8/25 Iridium
+- **John 5** 11/29/25 Pappy & Harriet's
+- **Alicia Witt** 12/3/25 3rd and Lindsley
+- **John Corabi** 12/30/25 Basement East
+    - Cody Parks
+    - The Dirty South
 
 ### 2024
 
