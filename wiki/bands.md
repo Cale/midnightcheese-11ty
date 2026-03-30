@@ -12,7 +12,11 @@ Last updated February 20th, 2026
 
 ### 2026
 
-- **Rascal Flatts** 2/5/26
+- **Alicia Witt** 1/15/26 Analog
+- **Rascal Flatts** 2/5/26 Bridgestone Arena
+- **Filter** 3/15/26 The Caverns
+    - Finger Eleven
+    - Local H
 
 ### 2025
 
@@ -119,7 +123,7 @@ Last updated February 20th, 2026
 - **Motley Crue** 10/11/24 Whiskey A Go-Go
 - **Crazy Train** 10/26/24 Champaign, IL
 - **Molly Tuttle** 12/3/24 Analog
-- **[Zakk Sabbath](https://en.wikipedia.org/wiki/Zakk_Wylde)** 12/20/24
+- **Zakk Sabbath** 12/20/24
     - The Iron Maidens
     - Zoso
 - **Duran Duran** 12/29/24 Fontainebleau
