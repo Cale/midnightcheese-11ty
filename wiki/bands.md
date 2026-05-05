@@ -17,6 +17,13 @@ Last updated February 20th, 2026
 - **Filter** 3/15/26 The Caverns
     - Finger Eleven
     - Local H
+- **Soul Asylum** 4/9/26 Ludlow Garage
+    - Corey Glover
+- **Pop Evil** 4/19/26 Basement East
+    - Sierra Pilot
+    - Kamenar
+- **AJ Lee & Blue Summit** 4/22/26 Basement East
+    - The Sentimental Gentlemen
 
 ### 2025
 
