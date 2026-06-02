@@ -8,7 +8,7 @@ tags:
 ---
 # Bands I've Seen
 
-Last updated February 20th, 2026
+Last updated June 1, 2026
 
 ### 2026
 
@@ -24,6 +24,11 @@ Last updated February 20th, 2026
     - Kamenar
 - **AJ Lee & Blue Summit** 4/22/26 Basement East
     - The Sentimental Gentlemen
+- **SatchVai** 5/3/26 Ryamn Auditorium
+    - Animals as Leaders
+- **Godsmack** 5/23/26 Orion
+    - Stone Temple Pilots
+    - Dorothy
 
 ### 2025
 
