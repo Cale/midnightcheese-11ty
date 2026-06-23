@@ -8,7 +8,7 @@ tags:
 ---
 # Bands I've Seen
 
-Last updated June 1, 2026
+Last updated June 22, 2026
 
 ### 2026
 
@@ -29,6 +29,9 @@ Last updated June 1, 2026
 - **Godsmack** 5/23/26 Orion
     - Stone Temple Pilots
     - Dorothy
+- **Human League** 6/21/26 Grand Ole Opry House
+    - Soft Cell
+    - Alison Moyet
 
 ### 2025
 
