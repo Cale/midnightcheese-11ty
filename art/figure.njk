@@ -1,0 +1,16 @@
+--- 
+layout: post-without-comments.njk
+permalink: /art/figure-drawing/
+title: 'Figure Drawing'
+tags:
+- artprojects
+---
+<h1>{{ title }}</h1>
+<p>1998-2002</p>
+<ul id="gallery">
+  {% for image in collections.figure %}
+    <a class="item" href="{{ image.src }}" target="__blank">
+      <img src="{{ image.src }}" width="{{ image.width }}" height="{{ image.height }}" title="{{ image.name}}" alt="{{ image.name}}" />
+    </a>
+  {% endfor %}
+</ul>
