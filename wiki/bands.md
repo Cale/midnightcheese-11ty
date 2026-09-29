@@ -32,6 +32,20 @@ Last updated June 22, 2026
 - **Human League** 6/21/26 Grand Ole Opry House
     - Soft Cell
     - Alison Moyet
+- **LA Guns** 7/12/26 Hop Springs
+- **Trey Hensley** 7/23/26 Franklin Theater
+- **Dogstar** 8/5/26 Ryman Auditorium
+- **John Corabi & Friends** 8/14/26 Hop Springs
+- **Squeeze** 8/16/26 Ryman Auditorium
+    - Adam Ant
+- **Motley Crue** 8/28/26 Ruoff Music Center
+    - Tesla
+    - Extreme
+- **The Pretty Reckless** 9/3/26 Ryman Auditorium
+    - Paris Jackson
+    - Doug
+- **Tom Morello** 9/18/26 Cannery Hall
+    - The Ike Reilly Assassination
 
 ### 2025
 
