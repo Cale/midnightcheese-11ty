@@ -88,6 +88,23 @@ module.exports = function(eleventyConfig) {
     });
   });
 
+  eleventyConfig.addCollection("collage", () => {
+    const files = []
+    const json = require('./art/collage.json')
+
+    Array.prototype.forEach.call(json.files, image => {
+      files.push(image)
+    })
+
+    return files.map((file) => {
+      console.log(`🖼 Adding picture to gallery: ${file}`)
+      return {
+        name: file.split(".")[0], // Get image name without extension
+        src: `https://assets.midnightcheese.com/images/art/collage/${file}`,
+      };
+    });
+  });
+
   return {
     passthroughFileCopy: true,
     dir: {
