@@ -159,6 +159,14 @@ Last updated June 22, 2026
 
 ### 2023
 
+- **Motley Crue** 7/6/2023 Glasgow Green
+    - Def Leppard
+    - Mammoth
+
+- **Motley Crue** 8/5/2023 JMA Wireless Dome
+    - Def Leppard
+    - Alice Cooper
+
 - Metallica
 - Pantera
 - Ice Nine Kills
